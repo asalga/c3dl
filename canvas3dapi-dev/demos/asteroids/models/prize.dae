@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<COLLADA version="1.4.0" xmlns="http://www.collada.org/2005/11/COLLADASchema">
+	<asset>
+		<contributor>
+			<author>Illusoft Collada 1.4.0 plugin for Blender - http://colladablender.illusoft.com</author>
+			<authoring_tool>Blender v:249 - Illusoft Collada Exporter v:0.3.162</authoring_tool>
+			<comments></comments>
+			<copyright></copyright>
+			<source_data>file://</source_data>
+		</contributor>
+		<created>2009-09-08T14:54:13.093424</created>
+		<modified>2009-09-08T14:54:13.093449</modified>
+		<unit meter="0.01" name="centimeter"/>
+		<up_axis>Z_UP</up_axis>
+	</asset>
+	<library_cameras>
+		<camera id="Camera-Camera" name="Camera-Camera">
+			<optics>
+				<technique_common>
+					<perspective>
+						<yfov>49.13434</yfov>
+						<znear>0.1</znear>
+						<zfar>100.0</zfar>
+					</perspective>
+				</technique_common>
+			</optics>
+		</camera>
+	</library_cameras>
+	<library_effects>
+		<effect id="asteroid_png-fx" name="asteroid_png-fx">
+			<profile_COMMON>
+				<technique sid="blender">
+					<phong>
+						<emission>
+							<color>0.00000 0.00000 0.00000 1</color>
+						</emission>
+						<ambient>
+							<color>0.40000 0.40000 0.40000 1</color>
+						</ambient>
+						<diffuse>
+							<color>0.80000 0.80000 0.80000 1</color>
+						</diffuse>
+						<specular>
+							<color>0.50000 0.50000 0.50000 1</color>
+						</specular>
+						<shininess>
+							<float>12.0</float>
+						</shininess>
+						<reflective>
+							<color>1.00000 1.00000 1.00000 1</color>
+						</reflective>
+						<reflectivity>
+							<float>0.0</float>
+						</reflectivity>
+						<transparent>
+							<color>1 1 1 1</color>
+						</transparent>
+						<transparency>
+							<float>0.0</float>
+						</transparency>
+					</phong>
+				</technique>
+			</profile_COMMON>
+		</effect>
+	</library_effects>
+	<library_lights>
+		<light id="Spot" name="Spot">
+			<technique_common>
+				<point>
+					<color>1.00000 1.00000 1.00000</color>
+					<constant_attenuation>1.0</constant_attenuation>
+					<linear_attenuation>0.0</linear_attenuation>
+					<quadratic_attenuation>0.0</quadratic_attenuation>
+				</point>
+			</technique_common>
+		</light>
+	</library_lights>
+	<library_materials>
+		<material id="asteroid_png" name="asteroid_png">
+			<instance_effect url="#asteroid_png-fx"/>
+		</material>
+	</library_materials>
+	<library_geometries>
+		<geometry id="Cube_002" name="Cube_002">
+			<mesh>
+				<source id="Cube_002-Position">
+					<float_array count="78" id="Cube_002-Position-array">0.31170 0.31170 -0.31170 0.31170 -0.31170 -0.31170 -0.31170 -0.31170 -0.31170 -0.31170 0.31170 -0.31170 0.31170 0.31170 0.31170 0.31170 -0.31170 0.31170 -0.31170 -0.31170 0.31170 -0.31170 0.31170 0.31170 0.75000 0.00000 -0.75000 0.00000 0.75000 -0.75000 0.75000 0.75000 0.00000 0.00000 -0.75000 -0.75000 0.75000 -0.75000 0.00000 -0.75000 0.00000 -0.75000 -0.75000 -0.75000 0.00000 -0.75000 0.75000 0.00000 0.75000 0.00000 0.75000 0.00000 0.75000 0.75000 0.00000 -0.75000 0.75000 -0.75000 0.00000 0.75000 0.00000 0.00000 -1.00000 0.00000 0.00000 1.00000 1.00000 0.00000 0.00000 0.00000 -1.00000 0.00000 -1.00000 0.00000 0.00000 0.00000 1.00000 0.00000</float_array>
+					<technique_common>
+						<accessor count="26" source="#Cube_002-Position-array" stride="3">
+							<param type="float" name="X"></param>
+							<param type="float" name="Y"></param>
+							<param type="float" name="Z"></param>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Cube_002-Normals">
+					<float_array count="72" id="Cube_002-Normals-array">0.59546 0.59546 -0.53931 0.59546 -0.59546 -0.53931 -0.59546 -0.59546 -0.53931 -0.59546 0.59546 -0.53931 0.59546 0.59546 0.53931 -0.59546 0.59546 0.53931 -0.59546 -0.59546 0.53931 0.59546 -0.59546 0.53931 0.53931 0.59546 -0.59546 0.53931 0.59546 0.59546 0.53931 -0.59546 0.59546 0.53931 -0.59546 -0.59546 0.59546 -0.53931 -0.59546 0.59546 -0.53931 0.59546 -0.59546 -0.53931 0.59546 -0.59546 -0.53931 -0.59546 -0.53931 -0.59546 -0.59546 -0.53931 -0.59546 0.59546 -0.53931 0.59546 0.59546 -0.53931 0.59546 -0.59546 0.59546 0.53931 0.59546 0.59546 0.53931 -0.59546 -0.59546 0.53931 -0.59546 -0.59546 0.53931 0.59546</float_array>
+					<technique_common>
+						<accessor count="24" source="#Cube_002-Normals-array" stride="3">
+							<param type="float" name="X"></param>
+							<param type="float" name="Y"></param>
+							<param type="float" name="Z"></param>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Cube_002-UV">
+					<float_array count="288" id="Cube_002-UV-array">0.84535 0.33333 0.80952 0.47619 0.66667 0.51690 0.66667 0.51690 0.66681 0.33999 0.84535 0.33333 0.33333 0.85023 0.33348 0.67332 0.51202 0.66667 0.51202 0.66667 0.47619 0.80952 0.33333 0.85023 0.17868 0.66667 0.00015 0.66001 0.00000 0.48310 0.00000 0.48310 0.14286 0.52381 0.17868 0.66667 0.51202 0.66667 0.33348 0.66001 0.33333 0.48310 0.33333 0.48310 0.47619 0.52381 0.51202 0.66667 0.33333 0.14977 0.33319 0.32668 0.15465 0.33333 0.15465 0.33333 0.19048 0.19048 0.33333 0.14977 0.48798 0.00000 0.66652 0.00666 0.66667 0.18356 0.66667 0.18356 0.52381 0.14286 0.48798 0.00000 0.82132 0.66667 0.99985 0.67332 1.00000 0.85023 1.00000 0.85023 0.85714 0.80952 0.82132 0.66667 1.00000 0.14977 0.99985 0.32668 0.82132 0.33333 0.82132 0.33333 0.85714 0.19048 1.00000 0.14977 0.66667 0.51690 0.80952 0.47619 0.91656 0.57834 0.91656 0.57834 0.76176 0.66667 0.66667 0.51690 0.15465 0.33333 0.00000 0.24475 0.08344 0.08833 0.08344 0.08833 0.19048 0.19048 0.15465 0.33333 0.75011 0.08833 0.90491 0.00000 1.00000 0.14977 1.00000 0.14977 0.85714 0.19048 0.75011 0.08833 0.51202 0.66667 0.66667 0.75525 0.58322 0.91167 0.58322 0.91167 0.47619 0.80952 0.51202 0.66667 0.58322 0.91167 0.42842 1.00000 0.33333 0.85023 0.33333 0.85023 0.47619 0.80952 0.58322 0.91167 0.82132 0.33333 0.66667 0.24475 0.75011 0.08833 0.75011 0.08833 0.85714 0.19048 0.82132 0.33333 0.75011 0.91167 0.66667 0.75525 0.82132 0.66667 0.82132 0.66667 0.85714 0.80952 0.75011 0.91167 0.00000 0.48310 0.09509 0.33333 0.24989 0.42166 0.24989 0.42166 0.14286 0.52381 0.00000 0.48310 0.24989 0.42166 0.33333 0.57809 0.17868 0.66667 0.17868 0.66667 0.14286 0.52381 0.24989 0.42166 1.00000 0.85023 0.90491 1.00000 0.75011 0.91167 0.75011 0.91167 0.85714 0.80952 1.00000 0.85023 0.41678 0.24501 0.33333 0.08858 0.48798 0.00000 0.48798 0.00000 0.52381 0.14286 0.41678 0.24501 0.33333 0.48310 0.42842 0.33333 0.58322 0.42166 0.58322 0.42166 0.47619 0.52381 0.33333 0.48310 0.08344 0.08833 0.23824 0.00000 0.33333 0.14977 0.33333 0.14977 0.19048 0.19048 0.08344 0.08833 0.91656 0.57834 0.80952 0.47619 0.84535 0.33333 0.84535 0.33333 1.00000 0.42191 0.91656 0.57834 0.58322 0.42166 0.66667 0.57809 0.51202 0.66667 0.51202 0.66667 0.47619 0.52381 0.58322 0.42166 0.66667 0.18356 0.57158 0.33333 0.41678 0.24501 0.41678 0.24501 0.52381 0.14286 0.66667 0.18356</float_array>
+					<technique_common>
+						<accessor count="144" source="#Cube_002-UV-array" stride="2">
+							<param type="float" name="S"></param>
+							<param type="float" name="T"></param>
+						</accessor>
+					</technique_common>
+				</source>
+				<vertices id="Cube_002-Vertex">
+					<input semantic="POSITION" source="#Cube_002-Position"/>
+				</vertices>
+				<triangles count="48" material="asteroid_png">
+					<input offset="0" semantic="VERTEX" source="#Cube_002-Vertex"/>
+					<input offset="1" semantic="NORMAL" source="#Cube_002-Normals"/>
+					<input offset="2" semantic="TEXCOORD" source="#Cube_002-UV"/>
+					<p>9 0 0 0 0 1 8 0 2 8 0 3 20 0 4 9 0 5 11 1 6 20 1 7 8 1 8 8 1 9 1 1 10 11 1 11 13 2 12 20 2 13 11 2 14 11 2 15 2 2 16 13 2 17 9 3 18 20 3 19 13 3 20 13 3 21 3 3 22 9 3 23 17 4 24 21 4 25 16 4 26 16 4 27 4 4 28 17 4 29 19 5 30 21 5 31 17 5 32 17 5 33 7 5 34 19 5 35 18 6 36 21 6 37 19 6 38 19 6 39 6 6 40 18 6 41 16 7 42 21 7 43 18 7 44 18 7 45 5 7 46 16 7 47 8 8 48 0 8 49 10 8 50 10 8 51 22 8 52 8 8 53 16 9 54 22 9 55 10 9 56 10 9 57 4 9 58 16 9 59 12 10 60 22 10 61 16 10 62 16 10 63 5 10 64 12 10 65 8 11 66 22 11 67 12 11 68 12 11 69 1 11 70 8 11 71 12 12 72 23 12 73 11 12 74 11 12 75 1 12 76 12 12 77 18 13 78 23 13 79 12 13 80 12 13 81 5 13 82 18 13 83 14 14 84 23 14 85 18 14 86 18 14 87 6 14 88 14 14 89 11 15 90 23 15 91 14 15 92 14 15 93 2 15 94 11 15 95 14 16 96 24 16 97 13 16 98 13 16 99 2 16 100 14 16 101 19 17 102 24 17 103 14 17 104 14 17 105 6 17 106 19 17 107 15 18 108 24 18 109 19 18 110 19 18 111 7 18 112 15 18 113 13 19 114 24 19 115 15 19 116 15 19 117 3 19 118 13 19 119 10 20 120 25 20 121 17 20 122 17 20 123 4 20 124 10 20 125 10 21 126 0 21 127 9 21 128 9 21 129 25 21 130 10 21 131 15 22 132 25 22 133 9 22 134 9 22 135 3 22 136 15 22 137 17 23 138 25 23 139 15 23 140 15 23 141 7 23 142 17 23 143</p>
+				</triangles>
+			</mesh>
+		</geometry>
+	</library_geometries>
+	<library_visual_scenes>
+		<visual_scene id="Scene" name="Scene">
+			<node layer="L1" id="Lamp" name="Lamp">
+				<translate sid="translate">4.07625 1.00545 5.90386</translate>
+				<rotate sid="rotateZ">0 0 1 106.93632</rotate>
+				<rotate sid="rotateY">0 1 0 3.16371</rotate>
+				<rotate sid="rotateX">1 0 0 37.26105</rotate>
+				<scale sid="scale">1.00000 1.00000 1.00000</scale>
+				<instance_light url="#Spot"/>
+			</node>
+			<node layer="L1" id="Camera" name="Camera">
+				<translate sid="translate">7.48113 -6.50764 5.34367</translate>
+				<rotate sid="rotateZ">0 0 1 46.69194</rotate>
+				<rotate sid="rotateY">0 1 0 0.61977</rotate>
+				<rotate sid="rotateX">1 0 0 63.55930</rotate>
+				<scale sid="scale">1.00000 1.00000 1.00000</scale>
+				<instance_camera url="#Camera-Camera"/>
+			</node>
+		</visual_scene>
+		<visual_scene id="Scene_001" name="Scene_001"/>
+		<visual_scene id="Scene_002" name="Scene_002"/>
+		<visual_scene id="Scene001" name="Scene001"/>
+		<visual_scene id="Scene002" name="Scene002">
+			<node layer="L1" id="Cube" name="Cube">
+				<translate sid="translate">0.00000 0.00000 0.00000</translate>
+				<rotate sid="rotateZ">0 0 1 0.00000</rotate>
+				<rotate sid="rotateY">0 1 0 -0.00000</rotate>
+				<rotate sid="rotateX">1 0 0 0.00000</rotate>
+				<scale sid="scale">1.00000 1.00000 1.00000</scale>
+				<instance_geometry url="#Cube_002">
+					<bind_material>
+						<technique_common>
+							<instance_material symbol="asteroid_png" target="#asteroid_png">
+								<bind_vertex_input input_semantic="TEXCOORD" input_set="1" semantic="CHANNEL1"/>
+							</instance_material>
+						</technique_common>
+					</bind_material>
+				</instance_geometry>
+			</node>
+		</visual_scene>
+	</library_visual_scenes>
+	<library_physics_materials>
+		<physics_material id="Cube-PhysicsMaterial" name="Cube-PhysicsMaterial">
+			<technique_common>
+				<dynamic_friction>0.5</dynamic_friction>
+				<restitution>0.0</restitution>
+				<static_friction>0.5</static_friction>
+			</technique_common>
+		</physics_material>
+	</library_physics_materials>
+	<library_physics_models>
+		<physics_model id="Scene-PhysicsModel" name="Scene-PhysicsModel"/>
+		<physics_model id="Scene_001-PhysicsModel" name="Scene_001-PhysicsModel"/>
+		<physics_model id="Scene_002-PhysicsModel" name="Scene_002-PhysicsModel"/>
+		<physics_model id="Scene001-PhysicsModel" name="Scene001-PhysicsModel"/>
+		<physics_model id="Scene002-PhysicsModel" name="Scene002-PhysicsModel">
+			<rigid_body name="Cube-RigidBody" sid="Cube-RigidBody">
+				<technique_common>
+					<dynamic>false</dynamic>
+					<mass>0</mass>
+					<instance_physics_material url="#Cube-PhysicsMaterial"/>
+					<shape>
+						<instance_geometry url="#Cube_002"/>
+					</shape>
+				</technique_common>
+			</rigid_body>
+		</physics_model>
+	</library_physics_models>
+	<library_physics_scenes>
+		<physics_scene id="Scene-Physics" name="Scene-Physics">
+			<instance_physics_model url="#Scene-PhysicsModel"/>
+		</physics_scene>
+		<physics_scene id="Scene_001-Physics" name="Scene_001-Physics">
+			<instance_physics_model url="#Scene_001-PhysicsModel"/>
+		</physics_scene>
+		<physics_scene id="Scene_002-Physics" name="Scene_002-Physics">
+			<instance_physics_model url="#Scene_002-PhysicsModel"/>
+		</physics_scene>
+		<physics_scene id="Scene001-Physics" name="Scene001-Physics">
+			<instance_physics_model url="#Scene001-PhysicsModel"/>
+		</physics_scene>
+		<physics_scene id="Scene002-Physics" name="Scene002-Physics">
+			<instance_physics_model url="#Scene002-PhysicsModel">
+				<instance_rigid_body body="Cube-RigidBody" target="#Cube"/>
+			</instance_physics_model>
+		</physics_scene>
+	</library_physics_scenes>
+	<scene>
+		<instance_physics_scene url="#Scene002-Physics"/>
+		<instance_visual_scene url="#Scene002"/>
+	</scene>
+</COLLADA>
