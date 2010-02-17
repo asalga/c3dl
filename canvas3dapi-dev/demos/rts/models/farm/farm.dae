@@ -11,19 +11,19 @@
    </asset>
    <library_images>
       <image id="material_0_4_0-image" name="material_0_4_0-image">
-         <init_from>farm_textures/texture0.jpg</init_from>
+         <init_from>farm_textures/texture0.png</init_from>
       </image>
       <image id="material_1_5_0-image" name="material_1_5_0-image">
-         <init_from>farm_textures/texture1.jpg</init_from>
+         <init_from>farm_textures/texture1.png</init_from>
       </image>
       <image id="material_3_2_0-image" name="material_3_2_0-image">
-         <init_from>farm_textures/texture2.jpg</init_from>
+         <init_from>farm_textures/texture2.png</init_from>
       </image>
       <image id="material_5_1_0-image" name="material_5_1_0-image">
-         <init_from>farm_textures/texture3.jpg</init_from>
+         <init_from>farm_textures/texture3.png</init_from>
       </image>
       <image id="material_6_3_0-image" name="material_6_3_0-image">
-         <init_from>farm_textures/texture4.jpg</init_from>
+         <init_from>farm_textures/texture4.png</init_from>
       </image>
    </library_images>
    <library_materials>
