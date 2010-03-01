@@ -52,7 +52,7 @@ var selTopLine, selBottomLine, selLeftLine, selRightLine;
 
 // the material the selected object will have
 var selectedMat = null;
-var selHeight = 0.2;
+var selHeight = 0.5;
 var isCamMovingLeft = false;
 var isCamMovingRight = false;
 var isCamMovingUp = false;
@@ -78,12 +78,10 @@ var selection = (
 function Selection()
 {
   var lines = [null, null, null, null];
-  var coords;
-
   return {
     init: function()
     {
-      for(var i = 0; i < 4; i++)
+      for(var i = 0; i < 3; i++)
       {
         lines[i] = new c3dl.Line();
         lines[i].setColors([.33,.66,.99],[.33,.66,.99]);
@@ -91,10 +89,9 @@ function Selection()
         scn.addObjectToScene(lines[i]);
       }
     },
-    setBounds: function(x1,y1,x2,y2,x3,y3,x4,y4)
+    setBounds: function(x,z,x2,z2)
     {
-    coords = [x1,y1,x2,y2,x3,y3,x4,y4];
-     //lines[0].setCoordinates([x, 2, z], [x2, 2, z2]);
+      lines[0].setCoordinates([x, 2, z], [x2, 2, z2]);
      // lines[1].setCoordinates([x2, 2, z], [x2, 2, z2]);
      // lines[2].setCoordinates([x2, 2, z2], [x, 2, z2]);
      // lines[3].setCoordinates([x, 2, z2], [x, 2, z]);
@@ -105,7 +102,7 @@ function Selection()
     },
     setVisible: function(isVisible)
     {
-      for(var i = 0; i < 4; i++)
+      for(var i = 0; i < 3; i++)
       {
         lines[i].setVisible(isVisible);
 //        lines[i].setCoordinates[[0,0,0],
@@ -115,11 +112,6 @@ function Selection()
 })();
 
 
-
-function isPointInSquare(p, line1, line2, line3, line4)
-{
-  
-}
 
 function canvasMain(canvasName)
 {
@@ -150,7 +142,7 @@ function canvasMain(canvasName)
 
   selection.init();
   selection.setBounds(0,0,50,50);
-  selection.setVisible(false);
+ // selection.setVisible(false);
   
   var lv = [];
   var rad = 0;
@@ -232,7 +224,7 @@ function canvasMain(canvasName)
     var earth = new c3dl.Collada();
     earth.init(PLANE);
     earth.setTexture("textures/grass.jpg");
-    earth.scale([10,.01, 10]);
+    earth.scale([9.5,.01, 9.5]);
     earth.translate([c*100, 0,r*100]);
     earth.id = 0;
     scn.addObjectToScene(earth);
@@ -310,8 +302,8 @@ function mouseDown()
   screenStartY = event.pageY;
   
 
-  //selection.setVisible(true);
-  //selection.setBounds(startSx,startSy,startSx,startSy);
+  selection.setVisible(true);
+  selection.setBounds(startSx,startSy,startSx,startSy);
 }
 
 function mouseWheel(event)
@@ -413,7 +405,6 @@ function mouseMove(event)
   isCamMovingUp = (mmy < CAM_MOVE_BUFFER_SIZE) ? true : false;
   isCamMovingDown = (mmy > CANVAS_HEIGHT - CAM_MOVE_BUFFER_SIZE) ? true : false;
 
-if(md)selection.setVisible(true);
 
   var c = getWorldCoords(mmx, mmy);
   if(c)
@@ -424,80 +415,57 @@ if(md)selection.setVisible(true);
    } 
   if(md)
   {
-    var camLeft = cam.getLeft();
-
+    var d = cam.getLeft();
+    var t = cam.getLeft();
+    // add
     var a = [ startSx-mx ,0 , startSy-mz ];
     var l = c3dl.vectorLength(a);
+    var v = c3dl.multiplyVector(d,l);
+    var l1 = Math.abs(startSx-mx); 
     
     var forw = c3dl.vectorCrossProduct(cam.getLeft(), [0,1,0]);
-    forw = c3dl.multiplyVector(forw,1000);
-
+    var ff = c3dl.vectorCrossProduct(cam.getLeft(), [0,1,0]);
+    var forw = c3dl.multiplyVector(forw,1000);
     var aa = c3dl.vectorProject(a, forw);
     var testl = c3dl.vectorLength(aa);
     var b = Math.sqrt(l*l - testl*testl );
 
-   
+    document.getElementById('debug').innerHTML =  + screenStartX + "<br />"  + "<br />";
+
+var yy = c3dl.addVectors([mx,2,my], aa);//c3dl.multiplyVector(aa,10));    
+//    selection.setBounds(startSx, startSy, startSx - v[0]*x, startSx - v[0]*y);
+//    selection.setBounds(startSx, startSy, startSx - v[0]*t[0], startSy - v[0]*t[2]);
+ //   selection.setBounds(startSx, startSy, c[0], startSy);
     
     var lines = selection.getLines();
-
- 
-    var topRightX;
-    var topRightY;
-    var bottomLeftX;
-    var bottomLeftY;
+//    hyp[1].setCoordinates([startSx,2,startSy],[startSx - d[0]* l, 2, startSy - d[2]*l]);
+   // hyp[1].setCoordinates([startSx,2,startSy],[(startSx - d[0]* l) , 2, startSy - d[2]*l]);
+ //   hyp[2].setCoordinates([(startSx - d[0]* l) , 2, startSy - d[2]*l],[mx,2,mz]);
+    //hyp[1].setCoordinates([startSx,2,startSy],[(startSx - d[0]* l1) , 2, startSy - d[2]*l]);
     
+   // var topLeft = (screenStartX < screenCurrentX)? startSx - d[0]* b : startSx + d[0]* b;
+    //var topLeft = startSx - d[0]* b;
+    //var topRight = (screenStartX < screenCurrentX)? startSy - d[2]* b : startSy + d[2]* b;
+    var topRight 
+    var topLeft;
+    var bottomLeft;
+
     // if the user is dragging to the right
     if(screenStartX < screenCurrentX)
     {
-      topRightX = startSx - camLeft[0]* b;
-
-      bottomLeftX = mx + camLeft[0]* b;
-      bottomLeftY = mz + camLeft[2]* b;
-            
-      topRightY =  startSy - camLeft[2]* b;
+      topLeft = startSx - d[0]* b;
+      
+      topRight =  startSy - d[2]* b;
     }
     else
     {
-      topRightX = startSx + camLeft[0]* b;
-      topRightY =  startSy + camLeft[2]* b;
-      
-      bottomLeftX = mx - camLeft[0]* b;
-      bottomLeftY = mz - camLeft[2]* b;
+      topLeft = startSx + d[0]* b;
+      topRight =  startSy + d[2]* b;
     }
- 
- 
-    lines[0].setCoordinates([startSx,selHeight,startSy],[ topRightX, selHeight, topRightY]);
-    lines[1].setCoordinates([topRightX,selHeight,topRightY],[ mx, selHeight, mz]);
-    lines[2].setCoordinates([mx,selHeight,mz],[bottomLeftX, selHeight, bottomLeftY]);
-    lines[3].setCoordinates([bottomLeftX,selHeight,bottomLeftY],[startSx, selHeight, startSy]);
-    
- 
-    
 
-
-
-	// get the difference between the area of the triangle and the area of the three triangles
-	// created where the user clicked. If the user clicked inside the triangle, the difference
-	// should be near zero.
-	var diff = area - (area1 + area2 + area3);
-
-	// delete edg1, edge2, edge3, area1, area2, area3, normDotDir, normDotRayorig, t, POI, area;
-
-	// since we have done quite a few calculations on floats, 
-	// allow a small margin of error.
-	return (Math.abs(diff) <= 0.0001);
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-    document.getElementById('debug').innerHTML =  + areaBox + "<br />"  + "<br />";
+    lines[0].setCoordinates([startSx,selHeight,startSy],[ topLeft, selHeight, topRight]);
+    lines[1].setCoordinates([topLeft,selHeight,topRight],[ mx, selHeight, mz]);
+    //lines[2].setCoordinates([startSx,selHeight,startSy],[ mx + startX, selHeight, mz]);
   }
 }
 
