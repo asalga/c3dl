@@ -95,6 +95,7 @@ c3dl.OrbitCamera.prototype.getOrbitPoint = function()
 	closer than the closest allowed distance.
 	
 	@param {float} distance Must be greater than 0.
+  @returns {bool} true if the camera was moved closer, otherwise false.
 */
 c3dl.OrbitCamera.prototype.goCloser = function(distance)
 {
@@ -112,8 +113,10 @@ c3dl.OrbitCamera.prototype.goCloser = function(distance)
 		if( c3dl.vectorLength(shiftAmt) <= maxMoveCloser)
 		{
 			this.pos = c3dl.addVectors(this.pos, shiftAmt);
+      return true;
 		}
 	}
+  return false;
 }
 
 
@@ -123,6 +126,7 @@ c3dl.OrbitCamera.prototype.goCloser = function(distance)
 	farther than the farthest distance.
 	
 	@param {float} distance Must be greater than 0.
+  @returns {bool} true if the camera was moved farther, otherwise false.
 */
 c3dl.OrbitCamera.prototype.goFarther = function(distance)
 {
@@ -140,8 +144,10 @@ c3dl.OrbitCamera.prototype.goFarther = function(distance)
 		if( distanceBetweenCamAndOP <= this.getFarthestDistance())
 		{
 			this.pos = newpos;
+      return true;
 		}
 	}
+  return false;
 }
 
 
