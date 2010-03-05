@@ -11,6 +11,7 @@ const FARM_PATH     = "models/farm/farm.dae";
 
 var creatingBuilding = false;
 
+var nosel = false;
 const CANVAS_WIDTH = 500;
 const CANVAS_HEIGHT = 500;
 
@@ -376,6 +377,7 @@ function mouseUp() {
 function mouseDown(event) {
 
   mouseIsDown = true;
+  nosel = false;
 
   var viewportCoords = getClickedCoords(event);
   var worldCoords = getWorldCoords(viewportCoords[0], viewportCoords[1]);
@@ -386,7 +388,13 @@ function mouseDown(event) {
   selStartScreenCoords = [viewportCoords[0], viewportCoords[1]];
   
   topLeft = [worldCoords[0],0,worldCoords[2]];
-
+  
+  isCamMovingLeft = (mouseX < CAM_MOVE_BUFFER_SIZE) ? true : false;
+  isCamMovingRight = (mouseX > CANVAS_WIDTH - CAM_MOVE_BUFFER_SIZE) ? true : false;
+  isCamMovingUp = (mouseY < CAM_MOVE_BUFFER_SIZE) ? true : false;
+  isCamMovingDown = (mouseY > CANVAS_HEIGHT - CAM_MOVE_BUFFER_SIZE) ? true : false;
+  
+  if(isCamMovingLeft || isCamMovingRight || isCamMovingUp || isCamMovingDown){ nosel = true;}
   //selection.setVisible(true);
   //selection.setBounds(startSx,startSy,startSx,startSy);
 }
@@ -491,7 +499,7 @@ function updateSelection(mouseX,mouseY) {
   
   var worldCoords = getWorldCoords(mouseX, mouseY);
 
-  if (worldCoords && mouseIsDown) {
+  if (worldCoords && mouseIsDown && nosel == false) {
     
     selection.setVisible(true);
   
