@@ -284,10 +284,10 @@ function canvasMain(canvasName) {
 
 /*  var col = new c3dl.Collada();
   col.init(BARRACKS_PATH);
-  col.pitch(-3.14 / 2);
   col.translate([25,0,25]);
   usersBuildings.push(col);
   scn.addObjectToScene(col);*/
+  
 
 /*  var tree = new c3dl.Collada();
   tree.init(TREE_PATH);
@@ -338,14 +338,6 @@ function canvasMain(canvasName) {
     earth.translate([c * 100, -1, r * 100]);
     earth.id = 0;
     scn.addObjectToScene(earth);
-
-    
-  /*  var earth2 = new c3dl.Collada();
-    earth2.init(CUBE);
-    earth2.setTexture("textures/grass.jpg");
-    earth2.scale([1, 3, 1]);
-    scn.addObjectToScene(earth2);*/
-
   }
 
   cam = new c3dl.OrbitCamera();
@@ -460,21 +452,7 @@ function mouseUp() {
     creatingBuilding = false;
   }
 
-  
-  for( var i = 0; i < usersBuildings.length; i++)
-  {
-    var ux = usersBuildings[i].getPosition()[0];
-    var uy = usersBuildings[i].getPosition()[1];
 
-    if(pointInPolygon(ux,uy))
-    {
-      usersBuildings[i].setAngularVel([0.0,0.001, 0.0]);
-    }
-    else
-    {
-      usersBuildings[i].setAngularVel([0,0,0]);
-    }
-  }
   selection.setVisible(false);
   mouseIsDown = false;
 }
