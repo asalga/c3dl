@@ -4,10 +4,14 @@
 */
 
 // model paths
+const BANK          = "models/bank/bank.dae";
 const BARRACKS_PATH = "models/barracks/barracks.dae";
 const CUBE          = "models/cube.dae";
 const FARM_PATH     = "models/farm/farm.dae";
-//const TREE_PATH     = "models/tree/tree.dae";
+const FIREHALL      = "models/firehall/firehall.dae";
+const HOUSE         = "models/house/house.dae";
+const LUMBER_YARD   = "models/lumber_yard/lumber_yard.dae";
+const PERSON        = "models/person/person.dae";
 
 var creatingBuilding = false;
 
@@ -23,18 +27,22 @@ var mouseY = 0;
 
 const ZOOM_SENSITIVITY = 1;
 
-const CAM_MOVE_SPEED = 2;
+const CAM_MOVE_SPEED = 5;
 const CAM_MOVE_BUFFER_SIZE = 20;
 var keyD = false;
 
+c3dl.addModel(BANK);
 c3dl.addModel(BARRACKS_PATH);
-c3dl.addModel(FARM_PATH);
 c3dl.addModel(CUBE);
-//c3dl.addModel(TREE_PATH);
+c3dl.addModel(FARM_PATH);
+c3dl.addModel(FIREHALL);
+c3dl.addModel(HOUSE);
+c3dl.addModel(LUMBER_YARD);
+c3dl.addModel(PERSON);
 
 // How many lines make up the circle around the
 // buildings. The higher the value, the more lines.
-const OUTLINE_DETAIL = 7;
+const OUTLINE_DETAIL = 15;
 var outline1;
 
 c3dl.addMainCallBack(canvasMain, 'rts');
@@ -243,11 +251,12 @@ function canvasMain(canvasName) {
   selection.setBounds(0, 0, 50, 50);
   selection.setVisible(false);
 
-  var col = new c3dl.Collada();
+/*  var col = new c3dl.Collada();
   col.init(BARRACKS_PATH);
   col.pitch(-3.14 / 2);
   col.translate([25,0,25]);
-  scn.addObjectToScene(col);
+  usersBuildings.push(col);
+  scn.addObjectToScene(col);*/
 
 /*  var tree = new c3dl.Collada();
   tree.init(TREE_PATH);
@@ -256,11 +265,11 @@ function canvasMain(canvasName) {
   tree.translate([45,0,25]);
 //  scn.addObjectToScene(tree);
   */
-  outline1 = new outline(OUTLINE_DETAIL,[0,0,1],8);
-  outline1.setVisible(true);
-  outline1.setPosition([25,0,25]);
+  //outline1 = new outline(OUTLINE_DETAIL,[0,0,1],8);
+  //outline1.setVisible(true);
+  //outline1.setPosition([25,0,25]);
 
-  psys = new c3dl.ParticleSystem();
+  /*psys = new c3dl.ParticleSystem();
   psys.setMinVelocity([-.5, 3, -.5]);
   psys.setMaxVelocity([.2, 5, .5]);
   
@@ -281,7 +290,7 @@ function canvasMain(canvasName) {
   psys.setEmitRate(90);
   psys.init(150);
   psys.setPosition([25,0,25]);
-  scn.addObjectToScene(psys);
+  scn.addObjectToScene(psys);*/
 
   var r = -1;
   var c = -1;
@@ -294,9 +303,8 @@ function canvasMain(canvasName) {
     var earth = new c3dl.Collada();
     earth.init(CUBE);
     earth.setTexture("textures/grass.jpg");
-//    earth.scale([0.1, .01, 100]);
     earth.scale([10,.01,10]);
-    earth.translate([c * 100, 0, r * 100]);
+    earth.translate([c * 100, -1, r * 100]);
     earth.id = 0;
     scn.addObjectToScene(earth);
 
@@ -314,7 +322,7 @@ function canvasMain(canvasName) {
   cam.setClosestDistance(20);
   cam.setDistance(100);
   cam.pitch(1);
-  //alert(cam.getDir());
+  cam.yaw(Math.PI);
 
   scn.setCamera(cam);
   scn.startScene();
@@ -325,33 +333,14 @@ function canvasMain(canvasName) {
 }
 
 
-
-//  float  polyX[]    =  horizontal coordinates of corners
-//  float  polyY[]    =  vertical coordinates of corners
-//
-//
-//function pointInPolygon(x,y,polyX,polyY) {
-
-function pointInPolygon(x,y,line1, line2, line3, line4) {
-/*
-  var i, j=3;
-  var oddNodes=false;
-
-  for (i=0; i<3; i++) {
-    if (polyY[i]<y && polyY[j]>=y ||  polyY[j]<y && polyY[i]>=y) {
-    
-      if (polyX[i]+(y-polyY[i])/(polyY[j]-polyY[i])*(polyX[j]-polyX[i])<x) {
-        oddNodes=!oddNodes;
-      }
-    }
-    j=i;
-  }
-
-  return oddNodes;*/
+function pointInPolygon(x,y) {
 
   var isInside = true;
   var lines = selection.getLines();
+  var c1 = lines[0].getCoordinates();
+  var c2 = lines[1].getCoordinates();
 
+if(c3dl.vectorLength(c3dl.subtractVectors([c1[0],c1[1],c1[2]],[c2[3],c2[4],c2[5]])) > 10){
   for(var i = 0; i < 4; i++)
   {
     var c = lines[i].getCoordinates();
@@ -367,7 +356,8 @@ function pointInPolygon(x,y,line1, line2, line3, line4) {
       isInside = false;
     }
   }
-
+  }
+ else{isInside = false;}
   //document.getElementById('debug').innerHTML = a < 90;
   return isInside;
 }
@@ -384,6 +374,22 @@ function onKeyUp(event) {
 function mouseUp() {
   var tooClose = false;
 
+  if(!test){
+    for( var i = 0; i < usersBuildings.length; i++) {
+      var ux = usersBuildings[i].getPosition()[0];
+      var uy = usersBuildings[i].getPosition()[2];
+
+      if(pointInPolygon(ux,uy))
+      {
+        usersBuildings[i].setAngularVel([0.0,0.001, 0.0]);
+      }
+      else
+      {
+        usersBuildings[i].setAngularVel([0,0,0]);
+      }
+    }
+  }
+  
   if (usersBuildings.length > 0) {
     for (var i = 0; i < usersBuildings.length; i++) {
       if (test === usersBuildings[i]) {
@@ -469,7 +475,7 @@ function mouseWheel(event) {
 
   if (test) //creatingBuilding)
   {
-    test.roll(delta / 200);
+    test.yaw(delta / 200);
   }
 
   else {
@@ -509,15 +515,12 @@ function createObject(objID) {
   var collada = new c3dl.Collada();
 
   switch (objID) {
-  case 0:
-    collada.init(BARRACKS_PATH);
-    break;
-  case 1:
-    collada.init(FARM_PATH);
-    break;
-
-  default:
-    break;
+    case 0:collada.init(BARRACKS_PATH);break;
+    case 1:collada.init(FARM_PATH);break;
+    case 2:collada.init(HOUSE);break;
+    case 3:collada.init(FIREHALL);break;
+    case 4:collada.init(BANK);break;
+    default:break;
   }
 
   if (collada) {
@@ -592,7 +595,6 @@ function updateSelection(mouseX,mouseY) {
     var topRightY;
     var bottomLeftX;
     var bottomLeftY;
-
 
     // A vector from the start world coords to the end world coords
     //
@@ -750,12 +752,12 @@ function update(deltaTime) {
   
   // testing
   
-  var color = outline1.getColor();
+/*  var color = outline1.getColor();
   if(color[0] < 1){
   color[0] += 0.01;
   color[2] -= 0.01;
   outline1.setColor(color);
-  }
+  }*/
 }
 
 function picking(pickingObj) {
