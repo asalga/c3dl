@@ -213,11 +213,6 @@ function outline(detail, color, radius) {
   };
 }
 
-
-function isPointInSquare(p, line1, line2, line3, line4) {
-
-}
-
 function canvasMain(canvasName) {
   scn = new c3dl.Scene();
   scn.setCanvasTag(canvasName);
@@ -251,7 +246,7 @@ function canvasMain(canvasName) {
   var col = new c3dl.Collada();
   col.init(BARRACKS_PATH);
   col.pitch(-3.14 / 2);
-  col.translate([25,0,25]);
+  //col.translate([25,0,25]);
   scn.addObjectToScene(col);
 
 /*  var tree = new c3dl.Collada();
@@ -305,12 +300,11 @@ function canvasMain(canvasName) {
     earth.id = 0;
     scn.addObjectToScene(earth);
 
+    
   /*  var earth2 = new c3dl.Collada();
     earth2.init(CUBE);
     earth2.setTexture("textures/grass.jpg");
-    earth2.scale([100, .1, .1]);
-    earth.translate([c * 100, 0, r * 100]);
-    earth2.id = 9;
+    earth2.scale([1, 3, 1]);
     scn.addObjectToScene(earth2);*/
 
   }
@@ -320,7 +314,7 @@ function canvasMain(canvasName) {
   cam.setClosestDistance(20);
   cam.setDistance(100);
   cam.pitch(1);
- // cam.yaw(Math.PI);
+  //alert(cam.getDir());
 
   scn.setCamera(cam);
   scn.startScene();
@@ -330,6 +324,55 @@ function canvasMain(canvasName) {
   scn.setPickingCallback(picking);
 }
 
+
+
+//  float  polyX[]    =  horizontal coordinates of corners
+//  float  polyY[]    =  vertical coordinates of corners
+//
+//
+//function pointInPolygon(x,y,polyX,polyY) {
+
+function pointInPolygon(x,y,line1, line2, line3, line4) {
+/*
+  var i, j=3;
+  var oddNodes=false;
+
+  for (i=0; i<3; i++) {
+    if (polyY[i]<y && polyY[j]>=y ||  polyY[j]<y && polyY[i]>=y) {
+    
+      if (polyX[i]+(y-polyY[i])/(polyY[j]-polyY[i])*(polyX[j]-polyX[i])<x) {
+        oddNodes=!oddNodes;
+      }
+    }
+    j=i;
+  }
+
+  return oddNodes;*/
+
+  var isInside = true;
+  var lines = selection.getLines();
+
+  for(var i = 0; i < 4; i++)
+  {
+    var c = lines[i].getCoordinates();
+
+    var line = c3dl.normalizeVector(c3dl.subtractVectors( [c[3],c[4],c[5] ], [c[0],c[1],c[2] ]));
+    var lineNormal = c3dl.normalizeVector(c3dl.vectorCrossProduct(line,[0,1,0]));
+
+    var endOfLineToPoint = c3dl.subtractVectors([x,c[1],y],[c[0],c[1],c[2]]);
+    //document.getElementById('debug').innerHTML = endOfLineToPoint;
+    var a = c3dl.getAngleBetweenVectors(lineNormal, c3dl.normalizeVector(endOfLineToPoint));
+    if(a > 90)
+    {
+      isInside = false;
+    }
+  }
+
+  //document.getElementById('debug').innerHTML = a < 90;
+  return isInside;
+}
+  
+  
 function onKeyUp(event) {
   if (event.keyCode == 89) {
     keyD = false;
@@ -366,9 +409,22 @@ function mouseUp() {
     creatingBuilding = false;
   }
 
+  
+  for( var i = 0; i < usersBuildings.length; i++)
+  {
+    var ux = usersBuildings[i].getPosition()[0];
+    var uy = usersBuildings[i].getPosition()[1];
 
+    if(pointInPolygon(ux,uy))
+    {
+      usersBuildings[i].setAngularVel([0.0,0.001, 0.0]);
+    }
+    else
+    {
+      usersBuildings[i].setAngularVel([0,0,0]);
+    }
+  }
   selection.setVisible(false);
-
   mouseIsDown = false;
 }
 
@@ -656,8 +712,7 @@ function getWorldCoords(mmx, mmy) {
 
 function update(deltaTime) {
   document.getElementById("fps").innerHTML = "<br />FPS:" + Math.floor(scn.getFPS());
-  
-  
+
   updateSelection(mouseX, mouseY);
   
   if (selEndXWorldCoords && test) {
