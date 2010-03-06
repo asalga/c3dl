@@ -246,7 +246,7 @@ function canvasMain(canvasName) {
   var col = new c3dl.Collada();
   col.init(BARRACKS_PATH);
   col.pitch(-3.14 / 2);
-  //col.translate([25,0,25]);
+  col.translate([25,0,25]);
   scn.addObjectToScene(col);
 
 /*  var tree = new c3dl.Collada();
@@ -521,7 +521,6 @@ function createObject(objID) {
   }
 
   if (collada) {
-    collada.pitch(-Math.PI / 2);
     test = collada;
     collada.ID = idGenerator.getNextID();
     usersBuildings.push(collada);
