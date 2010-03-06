@@ -334,8 +334,8 @@ function canvasMain(canvasName) {
     var earth = new c3dl.Collada();
     earth.init(CUBE);
     earth.setTexture("textures/grass.jpg");
-    earth.scale([10,.01,10]);
-    earth.translate([c * 100, -1, r * 100]);
+    earth.scale([10,1.002,10]);
+    earth.translate([c * 100, -5, r * 100]);
     earth.id = 0;
     scn.addObjectToScene(earth);
   }
@@ -383,7 +383,6 @@ function pointInPolygon(point) {
       else {
         line = c3dl.normalizeVector(c3dl.subtractVectors( [c[3],c[4],c[5] ], [c[0],c[1],c[2] ]));
       }
-            
       var lineNormal = c3dl.normalizeVector(c3dl.vectorCrossProduct(line,[0,1,0]));
       var endOfLineToPoint = c3dl.subtractVectors([point[0],c[1],point[1]],[c[0],c[1],c[2]]);
 
@@ -640,7 +639,6 @@ function updateSelection(mouseX,mouseY) {
       var angle2 = 
       c3dl.getAngleBetweenVectors(c3dl.normalizeVector(forw), fromStartToEnd);
       
-      //document.getElementById('debug').innerHTML = forw;
 
       // if the user is dragging to the right
       // if (selStartScreenCoords[0] < selEndScreenCoords[0]) {
