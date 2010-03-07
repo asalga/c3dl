@@ -1,34 +1,47 @@
 <html>
   <head>
-    <title>C3DL - RTS</title>
+    <title>Seneca Island</title>
     <script language="javascript" src="../../../c3dl/c3dapi.js"></script>
-    <script language="javascript" src="main.js"></script>
+    <script language="javascript" src="source/main.js"></script>
+    <script language="javascript" src="source/building.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css" />
   </head>
 
-  <body>
-    <!--
-    Removed to prevent a vertical scrollbar which
-    interferes with zooming in canvas.
-    <h1><a href="">C3DL</a> - RTS</h1>
-    <p>
-      <canvas id="rts" width="500" height="500"></canvas>
-    </p>
-    -->
-    
-      <div align="center">
-        C3DL RTS Game
-        <font face="verdana"><span id="fps"></span></font><br />
-        <canvas id="rts" width="500" height="500"></canvas><br />
-        <br />
-        <img src="images/barracks.png" id="barracks" onclick="createObject(0);"/>
-        <img src="images/farm.png" id="farm" onclick="createObject(1);"/>
-        <img src="images/house_icon_up.png" id="house" onclick="createObject(2);"/>
-        <img src="images/firehall_icon_up.png" id="firehall" onclick="createObject(3);"/>
-        <img src="images/bank_icon_up.png" id="bank"onclick="createObject(4);"/>
-      </div>
+  <body background="#FFFFFF">
 
-    <span id='debug'></span>
+    <div align="center">
+      <img src="images/seneca_island.png" />
+    </div>
+      
+    <table border="0" align="center">
+      <tr>
+        <td width="50%">
+          <img src="images/money.gif" align="absmiddle" /><span style="font-size:24pt;" id="usersMoney">2000</span><br />
+        </td>
+        <td align="left" width="50%">
+          <img src="images/lumber.gif" align="absmiddle" /><span style="font-size:24pt;" id="usersLumber">1000</span><br />
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <canvas id="rts" width="500" height="500"></canvas>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <img src="images/house/house_icon_up.png" id="house" onclick="createObject(0);"/>
+          <img src="images/firehall/firehall_icon_up.png" id="firehall" onclick="createObject(1);"/>
+          <img src="images/bank/bank_icon_up.png" id="bank" onclick="createObject(2);"/>
+          <img src="images/lumber_yard/lumber_yard_icon_up.png" id="lumber_yard" onclick="createObject(3);"/>
 
+          <img src="images/blank.png" id="spacer" />
+          <img src="images/blank.png" id="cancel_building" onclick="cancelCreateObject();"/>
+        </td>
+      </tr>
+    </table>
+    ESC -> cancel building <br />
+    M -> +500 money (debugging) <br />
+    Y + wheel -> Yaw camera<br />
+    H -> camera home
   </body>
 </html>
