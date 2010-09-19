@@ -65,15 +65,19 @@ c3dl.copyVectorContents = function (srcVec, destVec)
 {
  destVec= V3.clone(srcVec);
 }
+
+/**
+*/
 c3dl.addVectorComponent = function (srcVec, newComponent)
 {
   var newVec = new C3DL_FLOAT_ARRAY(4);
-  newVec[0]=srcVec[0]
-  newVec[1]=srcVec[1]
-  newVec[2]=srcVec[2]
-  newVec[3]=newComponent
+  newVec[0] = srcVec[0]
+  newVec[1] = srcVec[1]
+  newVec[2] = srcVec[2]
+  newVec[3] = newComponent
   return newVec;
 }
+
 /**
  Create a 3D Vector from the given 'newX', 'newY' 
  and 'newZ' arguments.
@@ -171,7 +175,7 @@ c3dl.vectorProject = function (vecOne, vecTwo)
  */
 c3dl.vectorCrossProduct = function (vecOne, vecTwo, dest)
 {
-return V3.cross(vecOne, vecTwo, dest);
+  return V3.cross(vecOne, vecTwo, dest);
 }
 
 /**
@@ -287,10 +291,14 @@ c3dl.divideVector = function (vec, scalar, dest)
  */
 c3dl.multiplyVectorByVector = function (vecOne, vecTwo, dest)
 {
-  if (typeof(dest) == "undefined" || dest == null) dest = c3dl.makeVector();
+  if (typeof(dest) == "undefined" || dest == null){
+    dest = c3dl.makeVector();
+  }
+  
   dest[0] = vecOne[0] * vecTwo[0];
   dest[1] = vecOne[1] * vecTwo[1];
   dest[2] = vecOne[2] * vecTwo[2];
+  
   return dest;
 }
 
@@ -306,7 +314,7 @@ c3dl.multiplyVectorByVector = function (vecOne, vecTwo, dest)
  */
 c3dl.isVectorEqual = function (vecOne, vecTwo)
 {
-  // add tolerance to calculations
+  // TODO: add tolerance to calculations
   return (vecOne[0] === vecTwo[0] && vecOne[1] === vecTwo[1] && vecOne[2] === vecTwo[2]);
 }
 
