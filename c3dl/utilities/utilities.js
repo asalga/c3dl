@@ -14,30 +14,22 @@
  */
 c3dl.isContextSupported = function (contextVersion)
 {
-  var isSupported = true;
-  var dynamicCanvas;
-  var contextString;
-
-  if (contextVersion != c3dl.GLES_CONTEXT_20)
+  if (contextVersion !== c3dl.GLES_CONTEXT_20)
   {
     return false;
   }
   try
   {
-    // create a canvas element in the html
-    if (dynamicCanvas = document.createElement('canvas'))
-    {
-      // ignore the return value of getContext(), if this method does 
-      // not throw an exception, we're ok.
-      dynamicCanvas.getContext("moz-glweb20");
-    }
+    // create a canvas element in the html and ignore the return value of getContext().
+    // If this method does not throw an exception, we're ok.
+    document.createElement('canvas').getContext("experimental-webgl");
   }
   catch (err)
   {
-    isSupported = false;
+    return false;
   }
 
-  return isSupported;
+  return true;
 }
 
 /**
