@@ -34,7 +34,7 @@ c3dl.WebGL = function ()
   this.lineVertBuffer = null;
   this.lineColBuffer = null;
 
-  // unique id of this renderer
+  // Each canvas on the page has its own renderer
   this.ID = c3dl.getNextRendererID();
   this.STANDARD_PROGRAM_ID = null;
 
@@ -126,15 +126,14 @@ c3dl.WebGL = function ()
   }
 
   /**
-   @private
    Create a program which is composed of shaders.
    
    Create a program object which is composed of compiled shader objects.
    This program object can be installed as the current rendering state 
    by using gl.useProgram().
    
-   @param {Array|String} vertexShaderSource The source code for the vertex shader.
-   @param {Array|String} fragmentShaderSource The source code for the fragment shader.
+   @param {String} vertexShader The source code for the vertex shader.
+   @param {String} fragmentShader The source code for the fragment shader.
    
    @return {c3dl.ProgramObject} ProgramObject or null .
    */
@@ -625,16 +624,17 @@ c3dl.WebGL = function ()
     }
     else
     {
-	  var sphereMatrix = c3dl.makeIdentityMatrix();
-	  c3dl.matrixMode(c3dl.PROJECTION);
+      var sphereMatrix = c3dl.makeIdentityMatrix();
+      c3dl.matrixMode(c3dl.PROJECTION);
       var projMatrix = c3dl.peekMatrix();
       c3dl.matrixMode(c3dl.MODELVIEW); 
+
       // set the bounding sphere's position
-	  var pos =boundingSphere.getPosition();
-	  sphereMatrix[12] = pos[0];
+      var pos = boundingSphere.getPosition();
+      sphereMatrix[12] = pos[0];
       sphereMatrix[13] = pos[1];
       sphereMatrix[14] = pos[2];
-	  sphereMatrix[0] = sphereMatrix[5] = sphereMatrix[10] = boundingSphere.getRadius();
+      sphereMatrix[0] = sphereMatrix[5] = sphereMatrix[10] = boundingSphere.getRadius();
 
       // create a modelviewprojection matrix.  By doing this, we can multiply
       // 3 matrices together once per model instead of once per vertex.
@@ -715,9 +715,7 @@ c3dl.WebGL = function ()
       // if the effect has already been compiled, go ahead and render the geometry.
       else
       {
-        var renderingObj =
-        {
-        };
+        var renderingObj = {};
 
         // user will need to query states of the context.
         renderingObj["context"] = glCanvas3D;
@@ -760,9 +758,7 @@ c3dl.WebGL = function ()
     // the standard shader.
     else
     {
-      var renderingObj =
-      {
-      };
+      var renderingObj = {};
 
       //
       renderingObj["context"] = glCanvas3D;
@@ -855,8 +851,8 @@ c3dl.WebGL = function ()
 
         //
         var modelMatrix = psys.getParticle(i).getTransform();
-        modelMatrix = c3dl.multiplyMatrixByMatrix(modelMatrix, [pSize, 0, 0, 0, 0, pSize, 0, 0, 0, 0, 
-          pSize, 0, 0, 0, 0, 1]);
+        modelMatrix = c3dl.multiplyMatrixByMatrix(modelMatrix, 
+            [pSize, 0, 0, 0, 0, pSize, 0, 0, 0, 0, pSize, 0, 0, 0, 0, 1]);
 
         // create a ModelViewProjection matrix.  By doing this, we can multiply
         // 3 matrices together once per particle instead of once per vertex
@@ -910,9 +906,7 @@ c3dl.WebGL = function ()
 
         if (this.lineVertBuffer == null)
         {
-          this.lineVertBuffer =
-          {
-          };
+          this.lineVertBuffer = {};
           this.lineVertBuffer.position = glCanvas3D.createBuffer();
         }
 
@@ -971,9 +965,7 @@ c3dl.WebGL = function ()
 
         if (this.pointVertBuffer == null)
         {
-          this.pointVertBuffer =
-          {
-          };
+          this.pointVertBuffer = {};
           this.pointVertBuffer.position = glCanvas3D.createBuffer();
         }
 
@@ -983,9 +975,7 @@ c3dl.WebGL = function ()
 
         if (this.pointColBuffer == null)
         {
-          this.pointColBuffer =
-          {
-          };
+          this.pointColBuffer = {};
           this.pointColBuffer.position = glCanvas3D.createBuffer();
         }
 

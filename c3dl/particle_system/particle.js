@@ -142,8 +142,8 @@ c3dl.Particle = function ()
   this.setVelocity = function (velocity)
   {
     this.velocity[0] = velocity[0];
-	this.velocity[1] = velocity[1];
-	this.velocity[2] = velocity[2];
+    this.velocity[1] = velocity[1];
+    this.velocity[2] = velocity[2];
   }
 
   /**

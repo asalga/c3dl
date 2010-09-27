@@ -17,7 +17,6 @@ c3dl.addMainCallBack(canvasMain, "lines");
 // of the canvas where the scene will show.
 function canvasMain(canvasName)
 {
-  // create a new Scene object
   scn = new c3dl.Scene();
   scn.setCanvasTag(canvasName);
   renderer = new c3dl.WebGL();
@@ -35,18 +34,15 @@ function canvasMain(canvasName)
     scn.addObjectToScene(l);
   }
 
-  // default ambient light is full, so turn it all off to 
-  // control color with spotlight.
   scn.setAmbientLight([0,0,0]);
 
-  // create a camera
   cam = new c3dl.FreeCamera();
-  cam.setPosition([40,40,40]);
-  cam.setLookAtPoint([0,0,0]);
+  cam.setPosition([40, 40, 40]);
+  cam.setLookAtPoint([0, 0, 0]);
 
   scn.setCamera(cam);
   scn.setUpdateCallback(update);
-  scn.setKeyboardCallback(up,null);
+  scn.setKeyboardCallback(up, null);
   scn.startScene();
 }
 
@@ -72,8 +68,8 @@ function update(t)
 				
 				var oldCols = lineList[i].getColors();
 
-				var col = [startColor[0],oldCoords[0]/40,startColor[2]];
-				var col2 = [oldCoords[1],oldCoords[0]/40,1];
+				var col = [startColor[0], oldCoords[0]/40, startColor[2]];
+				var col2 = [oldCoords[1], oldCoords[0]/40, 1];
 				
 				lineList[i].setColors(col, col2);
 
@@ -145,7 +141,7 @@ function up(event)
   // S toggle visibility of random lines
   if(event.keyCode == 83) {
     for (var i in lineList) {
-      var r =Math.ceil(Math.random()*100);
+      var r = Math.ceil(Math.random() * 100);
       lineList[i].setVisible(r%2);
     }
   }
