@@ -19,10 +19,14 @@ c3dl.isContextSupported = function (contextVersion)
     return false;
   }
   try
-  {
-    // create a canvas element in the html and ignore the return value of getContext().
-    // If this method does not throw an exception, we're ok.
-    document.createElement('canvas').getContext("experimental-webgl");
+  { 
+    // Minefield throws an exception if we couldn't grab a context.
+    // Chrome returns null for getContext, so cover both cases.
+    var cvs = document.createElement('canvas');
+    
+    if(!cvs.getContext("experimental-webgl")){
+      return false;
+    }
   }
   catch (err)
   {
