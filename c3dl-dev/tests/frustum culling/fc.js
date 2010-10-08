@@ -1,5 +1,10 @@
+/*
+  Copyright (c) 2008 Seneca College
+  Licenced under the MIT License (http://www.c3dl.org/index.php/mit-license/)
+*/
+
 c3dl.addMainCallBack(canvasMain, "test");
-c3dl.addModel("obj.dae");
+c3dl.addModel("airplane.dae");
 var timesincelastchange = 0;
 var obj;
 var cam = [];
@@ -34,7 +39,7 @@ function canvasMain(canvasName) {
   if (renderer.isReady()) {
 
     obj = new c3dl.Collada();
-    obj.init("obj.dae");
+    obj.init("airplane.dae");
     obj.setPosition(new Array(0.0, 0.0, 0));
     obj.scale([0.5, 0.5, 0.5]);
     scn.addObjectToScene(obj);
@@ -46,7 +51,7 @@ function canvasMain(canvasName) {
 
 function test() {
   scn.setCamera(cam[currentCam]);
-  document.getElementById('fps').value = scn.getFPS();
+  document.getElementById('fps').innerHTML = Math.floor(scn.getFPS());
   var checker;
   var camera = scn.getCamera();
   camera.applyToWorld(scn.getCanvas().width / scn.getCanvas().height);
@@ -54,7 +59,8 @@ function test() {
   var viewMatrix = camera.getViewMatrix();
   var frustumMatrix = c3dl.multiplyMatrixByMatrix(projMatrix, viewMatrix);
   var frustumCulling = new Frustum(frustumMatrix);
-  //Culling using spheres
+  
+  // Culling using spheres
   var boundingSpheres = obj.getBoundingSpheres();
   for (var j = 0; j < boundingSpheres.length; j++) {
     checker = frustumCulling.sphereInFrustum(boundingSpheres[j]);
@@ -62,8 +68,7 @@ function test() {
       break;
     }
   }
-  document.getElementById('InOut').value = checker;
-
+  document.getElementById('inOrOut').innerHTML = checker;
 }
 
 function nextCam() {
@@ -103,7 +108,8 @@ function blastOff() {
   obj.setPosition(new Array(0.0, 0.0, 0));
   obj.setLinearVel(velocity);
 }
+
 function reset() {
-    obj.setLinearVel(new Array(0.0, 0.0, 0));
-    obj.setPosition(new Array(0.0, 0.0, 0));
+  obj.setLinearVel(new Array(0.0, 0.0, 0));
+  obj.setPosition(new Array(0.0, 0.0, 0));
 }

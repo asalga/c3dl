@@ -82,49 +82,6 @@ c3dl.Scene = function ()
   var culling = "BoundingSphere"
 
   // -------------------------------------------------------
-  /**
-   Add a texture to this scene to be used used for assigning to a model,
-   particle system etc. 
-   
-   If the renderer was not set for the scene, the texture will be queued and
-   will begin to load once the renderer is set
-   
-   @param {String} path
-   */
-/*	this.addTexture = function(path)
-	{
-		// check path parameter
-		if(path)
-		{
-			if(renderer && renderer.getGLContext())
-			{
-				renderer.addTexture(path);
-			}
-			else
-			{
-				textureQueue.push(path);
-			}
-		}
-		else
-		{
-			c3dl.debug.logWarning("Invalid parameter, '" + path + "' was passed to Scene's addTexture()");
-		}
-	}*/
-
-  /**
-   
-   */
-/*	this.getTextureID = function(path)
-	{
-		if(renderer)
-		{
-			return renderer.getTextureID(path);
-		}
-		else
-		{
-			return -1;
-		}
-	}*/
 
   /**
    @returns {Array} 
@@ -276,7 +233,6 @@ c3dl.Scene = function ()
     return objList[indxNum];
   }
 
-
   /**
    Get the type of test which will run when a user clicks on the canvas.
    
@@ -286,7 +242,6 @@ c3dl.Scene = function ()
   {
     return this.pickingPrecision;
   }
-
 
   /**
    @private
@@ -298,7 +253,6 @@ c3dl.Scene = function ()
   {
     this.boundingVolumesVisible = visible;
   }
-
 
   /**
    Set the functions to call when a key is pressed or released. <br />
@@ -539,7 +493,6 @@ c3dl.Scene = function ()
     }
   }
 
-
   /**
    @private
    This one just calls addTextToModel()
@@ -722,7 +675,6 @@ c3dl.Scene = function ()
     return pointRenderingMode;
   }
 
-
   /**
    Get the color of the background.
    
@@ -746,7 +698,6 @@ c3dl.Scene = function ()
       ambientLight = [light[0], light[1], light[2], 1];
     }
   }
-
 
   /**
    Acquire the WebGL Context
@@ -1078,14 +1029,11 @@ c3dl.Scene = function ()
       case c3dl.COLLADA:
         objList[i].update(timeElapsed);
       }
-
-
     }
 
     // update the SkyModel
     if (skyModel)
     {
-      //
       skyModel.update(timeElapsed);
 
       // move skymodel so the camera is at its center.
@@ -1103,7 +1051,6 @@ c3dl.Scene = function ()
     // draw the skyModel if there is one.
     if (skyModel)
     {
-      //glCanvas3D.disable(glCanvas3D.CULL_FACE);
       glCanvas3D.frontFace(glCanvas3D.CW);
       glCanvas3D.cullFace(glCanvas3D.BACK);
 
@@ -1162,54 +1109,53 @@ c3dl.Scene = function ()
 
       if (objList[i].getObjectType() == c3dl.COLLADA)
       {
-        var checker;	
-		var cam = this.getCamera();
-		var projMatrix = cam.getProjectionMatrix();		
+        var checker;
+        var cam = this.getCamera();
+        var projMatrix = cam.getProjectionMatrix();		
         var viewMatrix = cam.getViewMatrix();
-		var frustumMatrix = c3dl.multiplyMatrixByMatrix(projMatrix,viewMatrix);
-		var frustumCulling = new Frustum(frustumMatrix);
-		//Culling using spheres
-		if (culling === "BoundingSphere") {
-		  var boundingSpheres = objList[i].getBoundingSpheres();
-		  for (var j = 0; j < boundingSpheres.length; j++) {
-			checker = frustumCulling.sphereInFrustum(boundingSpheres[j]);
-			if (checker === "INSIDE") {	
-			  break;
-			}
-		  }
-		  if (checker === "INSIDE") {		
-			objList[i].render(glCanvas3D, this);
-		  }
-        }		  
-		//Culling Boxes
-		else if (culling === "BoundingBox") {
-		  for (var j = 0; j < 3; j++) {
-		    box = objList[i].getBoundingBox();
-		    sizes = [];
-		    sizes[0]= box.getHeight();
-		    sizes[1]= box.getLength();
-		    sizes[2]= box.getWidth();
-	        checker = frustumCulling.boundingBoxInfrustumPlane(box.getPosition(),sizes[j]);
-			if (checker === "INSIDE") {	
-			  break;
-			}
-		  }
-		  if (checker === "INSIDE") {		
-			objList[i].render(glCanvas3D, this);
-		  }
-	    }
-		else {
-		  objList[i].render(glCanvas3D, this);
-		}
+        var frustumMatrix = c3dl.multiplyMatrixByMatrix(projMatrix,viewMatrix);
+        var frustumCulling = new Frustum(frustumMatrix);
+        
+        // Culling using spheres
+        if (culling === "BoundingSphere") {
+          var boundingSpheres = objList[i].getBoundingSpheres();
+          for (var j = 0; j < boundingSpheres.length; j++) {
+            checker = frustumCulling.sphereInFrustum(boundingSpheres[j]);
+            if (checker === "INSIDE") {
+              break;
+            }
+          }
+          if (checker === "INSIDE") {
+            objList[i].render(glCanvas3D, this);
+          }
+        }
+        // Culling Boxes
+        else if (culling === "BoundingBox") {
+          for (var j = 0; j < 3; j++) {
+            box = objList[i].getBoundingBox();
+            sizes = [];
+            sizes[0]= box.getHeight();
+            sizes[1]= box.getLength();
+            sizes[2]= box.getWidth();
+            checker = frustumCulling.boundingBoxInfrustumPlane(box.getPosition(),sizes[j]);
+            if (checker === "INSIDE") {	
+              break;
+            }
+          }
+          if (checker === "INSIDE") {		
+            objList[i].render(glCanvas3D, this);
+          }
+        }
+        else {
+          objList[i].render(glCanvas3D, this);
+        }
       }
     }
+    
     // POINTS
     // if first time
-    //if(pointPositions == null)
-    //{
-    pointPositions = new Array();
-    pointColors = new Array();
-    //}
+    pointPositions = [];
+    pointColors = [];
     var currPoint = 0;
 
     // find all the points and group them together so we can make
@@ -1218,23 +1164,6 @@ c3dl.Scene = function ()
     {
       if (objList[i].getObjectType() == c3dl.POINT && objList[i].isVisible())
       {
-/*
-				// if the array was already filled once before
-				// only need to assign, not push, prevents the need to realloc array
-				if( pointPositions.length > 0 && currPoint < pointPositions.length/3)
-				{
-					pointPositions[currPoint*3] = objList[i].getPosition()[0];
-					pointPositions[(currPoint*3)+1] = objList[i].getPosition()[1];
-					pointPositions[(currPoint*3)+2] = objList[i].getPosition()[2];
-					
-					pointColors[currPoint*3] = objList[i].getColor()[0];
-					pointColors[(currPoint*3)+1] = objList[i].getColor()[1];
-					pointColors[(currPoint*3)+2] = objList[i].getColor()[2];
-					currPoint++;
-				}
-				else
-				{
-				*/
         pointPositions.push(objList[i].getPosition()[0]);
         pointPositions.push(objList[i].getPosition()[1]);
         pointPositions.push(objList[i].getPosition()[2]);
@@ -1242,7 +1171,6 @@ c3dl.Scene = function ()
         pointColors.push(objList[i].getColor()[0]);
         pointColors.push(objList[i].getColor()[1]);
         pointColors.push(objList[i].getColor()[2]);
-        //}
       }
     }
 
