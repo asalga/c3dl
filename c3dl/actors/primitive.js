@@ -42,7 +42,7 @@ c3dl.Primitive.prototype.isVisible = function ()
 }
 
 // -------------------------------------------------------
-// Setters	
+// Setters  
 /**
  Set the visibility state.
  

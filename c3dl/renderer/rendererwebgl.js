@@ -495,7 +495,7 @@ c3dl.WebGL = function ()
     this.contextWidth = width;
     this.contextHeight = height;
 
-    // enable the depth buffer, only needs to be done once, so do it here		
+    // enable the depth buffer, only needs to be done once, so do it here    
     glCanvas3D.enable(glCanvas3D.DEPTH_TEST);
 
     // create the shader programs
@@ -625,21 +625,21 @@ c3dl.WebGL = function ()
     }
     else
     {
-	  var sphereMatrix = c3dl.makeIdentityMatrix();
-	  c3dl.matrixMode(c3dl.PROJECTION);
+      var sphereMatrix = c3dl.makeIdentityMatrix();
+      c3dl.matrixMode(c3dl.PROJECTION);
       var projMatrix = c3dl.peekMatrix();
       c3dl.matrixMode(c3dl.MODELVIEW); 
       // set the bounding sphere's position
-	  var pos =boundingSphere.getPosition();
-	  sphereMatrix[12] = pos[0];
+      var pos =boundingSphere.getPosition();
+      sphereMatrix[12] = pos[0];
       sphereMatrix[13] = pos[1];
       sphereMatrix[14] = pos[2];
-	  sphereMatrix[0] = sphereMatrix[5] = sphereMatrix[10] = boundingSphere.getRadius();
+      sphereMatrix[0] = sphereMatrix[5] = sphereMatrix[10] = boundingSphere.getRadius();
 
       // create a modelviewprojection matrix.  By doing this, we can multiply
       // 3 matrices together once per model instead of once per vertex.
       var sphereViewMatrix = c3dl.multiplyMatrixByMatrix(viewMatrix,sphereMatrix);
-	  
+    
       var MVPMatrix = c3dl.multiplyMatrixByMatrix(projMatrix, sphereViewMatrix);
       this.setUniformMatrix(shader, "modelViewProjMatrix", MVPMatrix);
       this.setVertexAttribArray(shader, "Vertex", 3, this.pointSphereVBOVert);
@@ -753,7 +753,6 @@ c3dl.WebGL = function ()
         var cb = effect.getRenderingCallback();
         cb(renderingObj);
       }
-
     }
 
     // if the geometry didn't have an effect, we'll render it using
@@ -797,7 +796,7 @@ c3dl.WebGL = function ()
   }
 
   /**
-   @private	
+   @private  
    Render a particle system.
    
    @param {c3dl.ParticleSystem} psys

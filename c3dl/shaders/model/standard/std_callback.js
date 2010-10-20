@@ -55,7 +55,7 @@ c3dl.std_callback = function (renderingObj)
     var normalAttribLoc = glCanvas3D.getAttribLocation(progObjID, "Normal");
 
     // if the object acutally has normals and the normal attribute was found
-    //			
+    //      
     if (normalAttribLoc != -1 && currColl.getNormals())
     {
       // the top matrix is the modelview matrix.

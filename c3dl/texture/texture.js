@@ -34,7 +34,7 @@ c3dl.Texture = function ()
     return textureImage.ID;
   }
 
-  /**	
+  /**  
     @private
     Get the absolute path of the Texture.
    
@@ -119,7 +119,7 @@ c3dl.Texture = function ()
 
       // was a bit tricky to pass in glCanvas into the onload function 
       // of the image, so instead they were added as properties
-      //	textureImage.ID = 0;	
+      //  textureImage.ID = 0;  
       textureImage.glCanvas3D = glCanvas3D;
 
       // genTextures gives us an unused texture image id, like 

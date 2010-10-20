@@ -259,7 +259,7 @@ c3dl.Scene = function ()
    TODO: add keyPress event callback as windows and osx versions of firefox
    handle keyboard events differently.
    
-   @param {function} keyUpCB The callback function for the up key.		
+   @param {function} keyUpCB The callback function for the up key.    
    @param {function} keyDownCD The callback function for the down key.
    */
   this.setKeyboardCallback = function (keyUpCB, keyDownCB)
@@ -354,7 +354,7 @@ c3dl.Scene = function ()
     }
   }
 
-  /**		
+  /**    
    Get the size of the spheres when they are rendered as points.
    
    @returns {float} size the points will be when they are rendered as
@@ -553,7 +553,7 @@ c3dl.Scene = function ()
       var smallCanvasUVs = [
         [0.0, 1.0], // 0 - bottom left
         [0.0, 0.0], // 1 - top left
-        [1.0, 0.0], // 2 - top right	
+        [1.0, 0.0], // 2 - top right  
         [1.0, 1.0] // 3 - bottom right
         ];
       var smallCanvasFaces = [
@@ -813,7 +813,7 @@ c3dl.Scene = function ()
     {
       // place a 'hole' in the array. This can later be populated with another light.
       // don't delete the light, leave it up to the gc, otherwise
-      // the light seems to stay on and can't be removed.		
+      // the light seems to stay on and can't be removed.    
       lightList[lightID] = null;
 
       // we removed the light from our list, but WebGL still has
@@ -1111,7 +1111,7 @@ c3dl.Scene = function ()
       {
         var checker;
         var cam = this.getCamera();
-        var projMatrix = cam.getProjectionMatrix();		
+        var projMatrix = cam.getProjectionMatrix();    
         var viewMatrix = cam.getViewMatrix();
         var frustumMatrix = c3dl.multiplyMatrixByMatrix(projMatrix,viewMatrix);
         var frustumCulling = new Frustum(frustumMatrix);
@@ -1138,11 +1138,11 @@ c3dl.Scene = function ()
             sizes[1]= box.getLength();
             sizes[2]= box.getWidth();
             checker = frustumCulling.boundingBoxInfrustumPlane(box.getPosition(),sizes[j]);
-            if (checker === "INSIDE") {	
+            if (checker === "INSIDE") {  
               break;
             }
           }
-          if (checker === "INSIDE") {		
+          if (checker === "INSIDE") {    
             objList[i].render(glCanvas3D, this);
           }
         }
