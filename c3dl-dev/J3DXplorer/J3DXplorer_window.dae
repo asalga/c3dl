@@ -14,7 +14,7 @@
   </asset>
   <library_images>
     <image id="WindowTexture.jpg" name="WindowTexture_jpg">
-      <init_from>./WindowTexture.jpg</init_from>
+      <init_from>./textures/WindowTexture.jpg</init_from>
     </image>
   </library_images>
   <library_materials>
