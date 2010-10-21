@@ -91,40 +91,6 @@ c3dl.Scene = function ()
    
    @param {String} path
    */
-/*	this.addTexture = function(path)
-	{
-		// check path parameter
-		if(path)
-		{
-			if(renderer && renderer.getGLContext())
-			{
-				renderer.addTexture(path);
-			}
-			else
-			{
-				textureQueue.push(path);
-			}
-		}
-		else
-		{
-			c3dl.debug.logWarning("Invalid parameter, '" + path + "' was passed to Scene's addTexture()");
-		}
-	}*/
-
-  /**
-   
-   */
-/*	this.getTextureID = function(path)
-	{
-		if(renderer)
-		{
-			return renderer.getTextureID(path);
-		}
-		else
-		{
-			return -1;
-		}
-	}*/
 
   /**
    @returns {Array} 
@@ -305,7 +271,7 @@ c3dl.Scene = function ()
    TODO: add keyPress event callback as windows and osx versions of firefox
    handle keyboard events differently.
    
-   @param {function} keyUpCB The callback function for the up key.		
+   @param {function} keyUpCB The callback function for the up key.    
    @param {function} keyDownCD The callback function for the down key.
    */
   this.setKeyboardCallback = function (keyUpCB, keyDownCB)
@@ -400,7 +366,7 @@ c3dl.Scene = function ()
     }
   }
 
-  /**		
+  /**    
    Get the size of the spheres when they are rendered as points.
    
    @returns {float} size the points will be when they are rendered as
@@ -600,7 +566,7 @@ c3dl.Scene = function ()
       var smallCanvasUVs = [
         [0.0, 1.0], // 0 - bottom left
         [0.0, 0.0], // 1 - top left
-        [1.0, 0.0], // 2 - top right	
+        [1.0, 0.0], // 2 - top right  
         [1.0, 1.0] // 3 - bottom right
         ];
       var smallCanvasFaces = [
@@ -862,7 +828,7 @@ c3dl.Scene = function ()
     {
       // place a 'hole' in the array. This can later be populated with another light.
       // don't delete the light, leave it up to the gc, otherwise
-      // the light seems to stay on and can't be removed.		
+      // the light seems to stay on and can't be removed.    
       lightList[lightID] = null;
 
       // we removed the light from our list, but WebGL still has
@@ -1162,45 +1128,45 @@ c3dl.Scene = function ()
 
       if (objList[i].getObjectType() == c3dl.COLLADA)
       {
-        var checker;	
-		var cam = this.getCamera();
-		var projMatrix = cam.getProjectionMatrix();		
+        var checker;  
+    var cam = this.getCamera();
+    var projMatrix = cam.getProjectionMatrix();    
         var viewMatrix = cam.getViewMatrix();
-		var frustumMatrix = c3dl.multiplyMatrixByMatrix(projMatrix,viewMatrix);
-		var frustumCulling = new Frustum(frustumMatrix);
-		//Culling using spheres
-		if (culling === "BoundingSphere") {
-		  var boundingSpheres = objList[i].getBoundingSpheres();
-		  for (var j = 0; j < boundingSpheres.length; j++) {
-			checker = frustumCulling.sphereInFrustum(boundingSpheres[j]);
-			if (checker === "INSIDE") {	
-			  break;
-			}
-		  }
-		  if (checker === "INSIDE") {		
-			objList[i].render(glCanvas3D, this);
-		  }
-        }		  
-		//Culling Boxes
-		else if (culling === "BoundingBox") {
-		  for (var j = 0; j < 3; j++) {
-		    box = objList[i].getBoundingBox();
-		    sizes = [];
-		    sizes[0]= box.getHeight();
-		    sizes[1]= box.getLength();
-		    sizes[2]= box.getWidth();
-	        checker = frustumCulling.boundingBoxInfrustumPlane(box.getPosition(),sizes[j]);
-			if (checker === "INSIDE") {	
-			  break;
-			}
-		  }
-		  if (checker === "INSIDE") {		
-			objList[i].render(glCanvas3D, this);
-		  }
-	    }
-		else {
-		  objList[i].render(glCanvas3D, this);
-		}
+    var frustumMatrix = c3dl.multiplyMatrixByMatrix(projMatrix,viewMatrix);
+    var frustumCulling = new Frustum(frustumMatrix);
+    //Culling using spheres
+    if (culling === "BoundingSphere") {
+      var boundingSpheres = objList[i].getBoundingSpheres();
+      for (var j = 0; j < boundingSpheres.length; j++) {
+      checker = frustumCulling.sphereInFrustum(boundingSpheres[j]);
+      if (checker === "INSIDE") {  
+        break;
+      }
+      }
+      if (checker === "INSIDE") {    
+      objList[i].render(glCanvas3D, this);
+      }
+        }      
+    //Culling Boxes
+    else if (culling === "BoundingBox") {
+      for (var j = 0; j < 3; j++) {
+        box = objList[i].getBoundingBox();
+        sizes = [];
+        sizes[0]= box.getHeight();
+        sizes[1]= box.getLength();
+        sizes[2]= box.getWidth();
+          checker = frustumCulling.boundingBoxInfrustumPlane(box.getPosition(),sizes[j]);
+      if (checker === "INSIDE") {  
+        break;
+      }
+      }
+      if (checker === "INSIDE") {    
+      objList[i].render(glCanvas3D, this);
+      }
+      }
+    else {
+      objList[i].render(glCanvas3D, this);
+    }
       }
     }
     // POINTS
@@ -1219,22 +1185,22 @@ c3dl.Scene = function ()
       if (objList[i].getObjectType() == c3dl.POINT && objList[i].isVisible())
       {
 /*
-				// if the array was already filled once before
-				// only need to assign, not push, prevents the need to realloc array
-				if( pointPositions.length > 0 && currPoint < pointPositions.length/3)
-				{
-					pointPositions[currPoint*3] = objList[i].getPosition()[0];
-					pointPositions[(currPoint*3)+1] = objList[i].getPosition()[1];
-					pointPositions[(currPoint*3)+2] = objList[i].getPosition()[2];
-					
-					pointColors[currPoint*3] = objList[i].getColor()[0];
-					pointColors[(currPoint*3)+1] = objList[i].getColor()[1];
-					pointColors[(currPoint*3)+2] = objList[i].getColor()[2];
-					currPoint++;
-				}
-				else
-				{
-				*/
+        // if the array was already filled once before
+        // only need to assign, not push, prevents the need to realloc array
+        if( pointPositions.length > 0 && currPoint < pointPositions.length/3)
+        {
+          pointPositions[currPoint*3] = objList[i].getPosition()[0];
+          pointPositions[(currPoint*3)+1] = objList[i].getPosition()[1];
+          pointPositions[(currPoint*3)+2] = objList[i].getPosition()[2];
+          
+          pointColors[currPoint*3] = objList[i].getColor()[0];
+          pointColors[(currPoint*3)+1] = objList[i].getColor()[1];
+          pointColors[(currPoint*3)+2] = objList[i].getColor()[2];
+          currPoint++;
+        }
+        else
+        {
+        */
         pointPositions.push(objList[i].getPosition()[0]);
         pointPositions.push(objList[i].getPosition()[1]);
         pointPositions.push(objList[i].getPosition()[2]);

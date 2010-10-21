@@ -407,8 +407,8 @@ c3dl.PICK_PRECISION_TRIANGLE = 2;
 try{
   Float32Array;
 }catch(ex){
-  Uint8Array = WebGLUnsignedByteArray;
-  Float32Array = WebGLFloatArray;
+  Uint8Array = Array;
+  Float32Array = Array;
 }
 
 const C3DL_FLOAT_ARRAY = Float32Array;

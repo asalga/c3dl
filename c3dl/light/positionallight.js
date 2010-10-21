@@ -24,7 +24,7 @@ c3dl.PositionalLight = function ()
   // need to override the type the abstract class set.
   this.type = c3dl.POSITIONAL_LIGHT;
 
-  /**	 
+  /**   
    Get the attenuation factors of this light. This is an array of three values
    which include constant attenuation, linear attenuation and quadratic attenuation.
    
@@ -61,8 +61,8 @@ c3dl.PositionalLight = function ()
   this.setAttenuation = function (attenuation)
   {
     this.attenuation[0] = attenuation[0];
-	this.attenuation[1] = attenuation[1];
-	this.attenuation[2] = attenuation[2];
+  this.attenuation[1] = attenuation[1];
+  this.attenuation[2] = attenuation[2];
   }
 
   /**
@@ -73,8 +73,8 @@ c3dl.PositionalLight = function ()
   this.setPosition = function (vec)
   {
     this.position[0] = vec[0];
-	this.position[1] = vec[1];
-	this.position[2] = vec[2];
+  this.position[1] = vec[1];
+  this.position[2] = vec[2];
   }
 }
 
