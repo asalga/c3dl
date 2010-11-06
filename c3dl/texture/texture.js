@@ -19,7 +19,12 @@ c3dl.Texture = function ()
   */
   var textureImage = null;
   var isSetup = false;
-
+  var tCanvas = document.createElement('CANVAS'); 
+  tCanvas.width = 512;
+  tCanvas.height = 512;
+  var tCtx = tCanvas.getContext("2d");
+  var sourcecan = null;
+  var updateTexture = false;
   /**
     @private
     Get the texture ID, the texture ID is a unique number which
@@ -102,8 +107,7 @@ c3dl.Texture = function ()
     // the user from calling this method more than once.
     if (source != null && glCanvas3D != null && this.getIsSetup() == false)
     {
-      if (sourceCanvas == null)
-      {
+      if (sourceCanvas == null) {
         textureImage = new Image();
         textureImage.src = source;
 
@@ -111,9 +115,26 @@ c3dl.Texture = function ()
         // the name variable.
         textureImage.relativePath = source;
       }
-      else
-      {
-        textureImage = document.getElementById(sourceCanvas);
+      else {
+	      if (sourceCanvas instanceof HTMLCanvasElement) {
+          sourcecan = sourceCanvas;
+	        tCtx.drawImage(sourceCanvas, 0, 0, 512, 512);
+          textureImage = tCanvas;
+          updateTexture = true;
+        }
+        else if (sourceCanvas instanceof HTMLVideoElement) {
+          sourcecan = sourceCanvas;
+          tCtx.drawImage(sourceCanvas, 0, 0, 512, 512);
+          textureImage = tCanvas;
+          updateTexture = true;
+        }
+        else if (sourceCanvas instanceof HTMLImageElement) {
+          tCtx.drawImage(sourceCanvas, 0, 0, 512, 512);
+          textureImage = tCanvas;
+        }
+        else {
+          textureImage = document.getElementById(sourceCanvas);
+        }
         textureImage.relativePath = sourceCanvas;
       }
 
@@ -216,5 +237,11 @@ c3dl.Texture = function ()
 
     // if the image could be setup, this variable was set to
     return returnCode;
+  }
+  this.update = function () {
+    if (updateTexture) {
+      tCtx.drawImage(sourcecan, 0, 0, 512, 512);
+      textureImage.onload();
+    }
   }
 }
