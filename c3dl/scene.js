@@ -42,7 +42,6 @@ c3dl.Scene = function ()
   // the flexibility to have different factors for each scene.
   var pointAttenuation = c3dl.makeVector(1, 0, 0);
   var pointSize = 5;
-  var pointSmoothing = true;
 
   // default point rendering to spheres to prevent possible crashing
   // when users render points which playing a DVD on OS X.
@@ -399,17 +398,6 @@ c3dl.Scene = function ()
       pointAttenuation[1] = attn[1];
       pointAttenuation[2] = attn[2];
     }
-  }
-
-  /**
-   If point smoothing is on, points are rendered as circles, otherwise they are rendered as
-   squares.
-   
-   @returns {bool} true if points are rendered as circles, false if points are rendered as squares.
-   */
-  this.setPointSmooth = function (smooth)
-  {
-    pointSmoothing = smooth;
   }
 
   /**		
@@ -1158,7 +1146,8 @@ c3dl.Scene = function ()
     glCanvas3D.enable(glCanvas3D.CULL_FACE);
     glCanvas3D.frontFace(glCanvas3D.CCW);
     glCanvas3D.cullFace(glCanvas3D.BACK);
-
+    //update textures
+    renderer.texManager.updateTextures();
     // particle systems need to be rendered last, so first render
     // all opaque objects, then render particle systems. This is a bit
     // wasteful since we could have reordered the object list when the 
@@ -1175,44 +1164,44 @@ c3dl.Scene = function ()
       if (objList[i].getObjectType() == c3dl.COLLADA)
       {
         var checker;	
-		var cam = this.getCamera();
-		var projMatrix = cam.getProjectionMatrix();		
+        var cam = this.getCamera();
+        var projMatrix = cam.getProjectionMatrix();		
         var viewMatrix = cam.getViewMatrix();
-		var frustumMatrix = c3dl.multiplyMatrixByMatrix(projMatrix,viewMatrix);
-		var frustumCulling = new Frustum(frustumMatrix);
-		//Culling using spheres
-		if (culling === "BoundingSphere") {
-		  var boundingSpheres = objList[i].getBoundingSpheres();
-		  for (var j = 0; j < boundingSpheres.length; j++) {
-			checker = frustumCulling.sphereInFrustum(boundingSpheres[j]);
-			if (checker === "INSIDE") {	
-			  break;
-			}
-		  }
-		  if (checker === "INSIDE") {		
-			objList[i].render(glCanvas3D, this);
-		  }
-        }		  
-		//Culling Boxes
-		else if (culling === "BoundingBox") {
-		  for (var j = 0; j < 3; j++) {
-		    box = objList[i].getBoundingBox();
-		    sizes = [];
-		    sizes[0]= box.getHeight();
-		    sizes[1]= box.getLength();
-		    sizes[2]= box.getWidth();
-	        checker = frustumCulling.boundingBoxInfrustumPlane(box.getPosition(),sizes[j]);
-			if (checker === "INSIDE") {	
-			  break;
-			}
-		  }
-		  if (checker === "INSIDE") {		
-			objList[i].render(glCanvas3D, this);
-		  }
-	    }
-		else {
-		  objList[i].render(glCanvas3D, this);
-		}
+        var frustumMatrix = c3dl.multiplyMatrixByMatrix(projMatrix,viewMatrix);
+        var frustumCulling = new Frustum(frustumMatrix);
+        //Culling using spheres
+        if (culling === "BoundingSphere") {
+          var boundingSpheres = objList[i].getBoundingSpheres();
+          for (var j = 0; j < boundingSpheres.length; j++) {
+            checker = frustumCulling.sphereInFrustum(boundingSpheres[j]);
+            if (checker === "INSIDE") {	
+              break;
+            }
+          }
+          if (checker === "INSIDE") {		
+            objList[i].render(glCanvas3D, this);
+          }
+        }   		  
+        //Culling Boxes
+        else if (culling === "BoundingBox") {
+          for (var j = 0; j < 3; j++) {
+            box = objList[i].getBoundingBox();
+            sizes = [];
+            sizes[0]= box.getHeight();
+            sizes[1]= box.getLength();
+            sizes[2]= box.getWidth();
+            checker = frustumCulling.boundingBoxInfrustumPlane(box.getPosition(),sizes[j]);
+            if (checker === "INSIDE") {	
+              break;
+            }
+          }
+          if (checker === "INSIDE") {		
+            objList[i].render(glCanvas3D, this);
+          }
+        }
+        else {
+          objList[i].render(glCanvas3D, this);
+        }
       }
     }
     // POINTS

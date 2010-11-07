@@ -79,7 +79,12 @@ c3dl.std_callback = function (renderingObj)
     // queue one up
     if (texID == -1 && currColl.getTexture())
     {
-      renderer.texManager.addTexture(currColl.getTexture());
+      if (typeof currColl.getTexture() !== "string") {
+        renderer.texManager.addTextureFromCanvas2D(currColl.getTexture())
+      }
+      else {
+          renderer.texManager.addTexture(currColl.getTexture());
+      }
     }
 
     // The following must be fixed: If a collada object was specified as having
