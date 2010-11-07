@@ -3,9 +3,9 @@
   Licenced under the MIT License (http://www.c3dl.org/index.php/mit-license/)
 */
 
-// Written By:		Mark Paruzel
-// Date:			March 23, 2008
-// Project:			Canvas 3D Library
+// Written By:    Mark Paruzel
+// Date:      March 23, 2008
+// Project:      Canvas 3D Library
 // -----------------------------------------------------------------------------
 // NOTE: This group of functions act upon an array of three values which
 //       represent a vector in 3D space. The values of the array each hold the
@@ -102,27 +102,38 @@ c3dl.makeVector = function (newX, newY, newZ)
 c3dl.normalizeVector = function (vec)
 { 
   if (vec.length === 4) {
-	  var compr = vec[0] * vec[0] + vec[1] * vec[1] + vec[2] * vec[2];
-	  // Sometimes this can become invalid
-	  var ln = Math.sqrt(compr);
-	  // If the length is greater then zero, return the normalized Vector
-	  // Normalization
-	  vec[0] = vec[0] != 0.0 ? vec[0] / ln : 0.0;
-	  vec[1] = vec[1] != 0.0 ? vec[1] / ln : 0.0;
-	  vec[2] = vec[2] != 0.0 ? vec[2] / ln : 0.0;
-	  vec[3] = vec[3] != 0.0 ? vec[2] / ln : 0.0;
-	  return new C3DL_FLOAT_ARRAY(vec);
+    var compr = vec[0] * vec[0] + vec[1] * vec[1] + vec[2] * vec[2];
+    // Sometimes this can become invalid
+    var ln = Math.sqrt(compr);
+    // If the length is greater then zero, return the normalized Vector
+    // Normalization
+    vec[0] = vec[0] != 0.0 ? vec[0] / ln : 0.0;
+    vec[1] = vec[1] != 0.0 ? vec[1] / ln : 0.0;
+    vec[2] = vec[2] != 0.0 ? vec[2] / ln : 0.0;
+    vec[3] = vec[3] != 0.0 ? vec[2] / ln : 0.0;
+    
+    if(typeof vec == Array){
+      return [vec[0],vec[1],vec[2],vec[3]];
+    }
+    else{
+      return new C3DL_FLOAT_ARRAY([vec[0],vec[1],vec[2],vec[3]]);
+    }
   }
   else {
-	  var compr = vec[0] * vec[0] + vec[1] * vec[1] + vec[2] * vec[2];
-	  // Sometimes this can become invalid
-	  var ln = Math.sqrt(compr);
-	  // If the length is greater then zero, return the normalized Vector
-	  // Normalization
-	  vec[0] = vec[0] != 0.0 ? vec[0] / ln : 0.0;
-	  vec[1] = vec[1] != 0.0 ? vec[1] / ln : 0.0;
-	  vec[2] = vec[2] != 0.0 ? vec[2] / ln : 0.0;
-	  return new C3DL_FLOAT_ARRAY(vec);
+    var compr = vec[0] * vec[0] + vec[1] * vec[1] + vec[2] * vec[2];
+    // Sometimes this can become invalid
+    var ln = Math.sqrt(compr);
+    // If the length is greater then zero, return the normalized Vector
+    // Normalization
+    vec[0] = vec[0] != 0.0 ? vec[0] / ln : 0.0;
+    vec[1] = vec[1] != 0.0 ? vec[1] / ln : 0.0;
+    vec[2] = vec[2] != 0.0 ? vec[2] / ln : 0.0;
+    if(typeof vec == Array){
+      return [vec[0],vec[1],vec[2]];
+    }
+    else{
+      return new C3DL_FLOAT_ARRAY([vec[0],vec[1],vec[2]]);
+    }
   }
 }
 
@@ -186,7 +197,7 @@ c3dl.vectorLength = function (vec)
   return V3.length(vec);
 }
 
-/**	
+/**  
  Get the squared length of the vector 'vec'.
  
  @param {Array} vec The vector for which the squared length is required.

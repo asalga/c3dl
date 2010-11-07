@@ -64,14 +64,7 @@ c3dl.Point = function ()
    */
   this.setPosition = function (pos)
   {
-    if (pos.length == 3)
-    {
-      this.position = c3dl.copyObj(pos);
-    }
-    else
-    {
-      c3dl.debug.logWarning("invalid value passed to Point::setPosition()");
-    }
+    this.position = c3dl.copyObj(pos);
   }
 
   /**

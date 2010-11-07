@@ -50,7 +50,7 @@ c3dl.ColladaQueue =
   },
 
   /**
-   @private	
+   @private  
    Remove the first element from the queue. Do this if the first
    element has finished loading.
    */
@@ -64,9 +64,9 @@ c3dl.ColladaQueue =
       c3dl.ColladaManager.loadFile(c3dl.ColladaQueue.queue[0].path);
     }
 
-    // if all the models were done, but the user didn't give us	
+    // if all the models were done, but the user didn't give us  
     // their main functions, we don't want the gif spinning there
-    // forever, so turn it off.	
+    // forever, so turn it off.  
     else if (c3dl.ColladaQueue.isEmpty() == true && c3dl.mainCallBacks.length == 0)
     {
       c3dl.removeProgressBars();
@@ -87,7 +87,7 @@ c3dl.ColladaQueue =
   },
 
   /**
-   @private	
+   @private  
    Get the first element from the queue.
    
    @returns {Collada}

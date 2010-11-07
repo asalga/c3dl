@@ -50,7 +50,7 @@ function canvasMain(canvasName)
   //add a duck in the lower right portion of the screen, facing left.
   var thing = new c3dl.Collada();
   thing.init("duck.dae");
-  thing.setTexture("duck.png");
+  //thing.setTexture("duck.png");
   thing.scale([0.05,0.05,0.05]);
   thing.setPosition([10,-10,-50]);
   thing.yaw(Math.PI);//rotate the duck to face the other way (pi radians = 10 degrees)

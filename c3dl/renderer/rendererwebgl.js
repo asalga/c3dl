@@ -57,7 +57,7 @@ c3dl.WebGL = function ()
    of the context in the rendering callback function in effects to make 
    that texture active.
    
-   @parma {String} path Texture path
+   @param {String} path Texture path
    */
   this.addTexture = function (path)
   {
@@ -430,7 +430,7 @@ c3dl.WebGL = function ()
     glCanvas3D.bindBuffer(glCanvas3D.ARRAY_BUFFER, this.pointSphereVBOVert);
 
     // set the data using the bounding sphere verts since that sphere has a size of 1 unit
-    glCanvas3D.bufferData(glCanvas3D.ARRAY_BUFFER, new WebGLFloatArray(c3dl.BOUNDING_SPHERE_VERTICES), glCanvas3D.STATIC_DRAW);
+    glCanvas3D.bufferData(glCanvas3D.ARRAY_BUFFER, new C3DL_FLOAT_ARRAY(c3dl.BOUNDING_SPHERE_VERTICES), glCanvas3D.STATIC_DRAW);
 
     // next frame we'll be ready to render
     this.pointSphereRenderReady = true;
@@ -495,7 +495,7 @@ c3dl.WebGL = function ()
     this.contextWidth = width;
     this.contextHeight = height;
 
-    // enable the depth buffer, only needs to be done once, so do it here		
+    // enable the depth buffer, only needs to be done once, so do it here    
     glCanvas3D.enable(glCanvas3D.DEPTH_TEST);
 
     // create the shader programs
@@ -625,21 +625,21 @@ c3dl.WebGL = function ()
     }
     else
     {
-	  var sphereMatrix = c3dl.makeIdentityMatrix();
-	  c3dl.matrixMode(c3dl.PROJECTION);
+    var sphereMatrix = c3dl.makeIdentityMatrix();
+    c3dl.matrixMode(c3dl.PROJECTION);
       var projMatrix = c3dl.peekMatrix();
       c3dl.matrixMode(c3dl.MODELVIEW); 
       // set the bounding sphere's position
-	  var pos =boundingSphere.getPosition();
-	  sphereMatrix[12] = pos[0];
+    var pos =boundingSphere.getPosition();
+    sphereMatrix[12] = pos[0];
       sphereMatrix[13] = pos[1];
       sphereMatrix[14] = pos[2];
-	  sphereMatrix[0] = sphereMatrix[5] = sphereMatrix[10] = boundingSphere.getRadius();
+    sphereMatrix[0] = sphereMatrix[5] = sphereMatrix[10] = boundingSphere.getRadius();
 
       // create a modelviewprojection matrix.  By doing this, we can multiply
       // 3 matrices together once per model instead of once per vertex.
       var sphereViewMatrix = c3dl.multiplyMatrixByMatrix(viewMatrix,sphereMatrix);
-	  
+    
       var MVPMatrix = c3dl.multiplyMatrixByMatrix(projMatrix, sphereViewMatrix);
       this.setUniformMatrix(shader, "modelViewProjMatrix", MVPMatrix);
       this.setVertexAttribArray(shader, "Vertex", 3, this.pointSphereVBOVert);
@@ -797,7 +797,7 @@ c3dl.WebGL = function ()
   }
 
   /**
-   @private	
+   @private  
    Render a particle system.
    
    @param {c3dl.ParticleSystem} psys
@@ -917,7 +917,7 @@ c3dl.WebGL = function ()
         }
 
         glCanvas3D.bindBuffer(glCanvas3D.ARRAY_BUFFER, this.lineVertBuffer.position);
-        glCanvas3D.bufferData(glCanvas3D.ARRAY_BUFFER, new WebGLFloatArray(coords), glCanvas3D.STREAM_DRAW);
+        glCanvas3D.bufferData(glCanvas3D.ARRAY_BUFFER, new C3DL_FLOAT_ARRAY(coords), glCanvas3D.STREAM_DRAW);
         this.setVertexAttribArray(shader, "Vertex", 3, this.lineVertBuffer.position);
 
         if (this.lineColBuffer == null)
@@ -929,7 +929,7 @@ c3dl.WebGL = function ()
         }
 
         glCanvas3D.bindBuffer(glCanvas3D.ARRAY_BUFFER, this.lineColBuffer.position);
-        glCanvas3D.bufferData(glCanvas3D.ARRAY_BUFFER, new WebGLFloatArray(cols), glCanvas3D.STREAM_DRAW);
+        glCanvas3D.bufferData(glCanvas3D.ARRAY_BUFFER, new C3DL_FLOAT_ARRAY(cols), glCanvas3D.STREAM_DRAW);
         this.setVertexAttribArray(shader, "Color", 3, this.lineColBuffer.position);
 
         glCanvas3D.drawArrays(glCanvas3D.LINES, 0, coords.length / 3);
@@ -978,7 +978,7 @@ c3dl.WebGL = function ()
         }
 
         glCanvas3D.bindBuffer(glCanvas3D.ARRAY_BUFFER, this.pointVertBuffer.position);
-        glCanvas3D.bufferData(glCanvas3D.ARRAY_BUFFER, new WebGLFloatArray(pointPositions), glCanvas3D.STREAM_DRAW);
+        glCanvas3D.bufferData(glCanvas3D.ARRAY_BUFFER, new C3DL_FLOAT_ARRAY(pointPositions), glCanvas3D.STREAM_DRAW);
         this.setVertexAttribArray(shader, "Vertex", 3, this.pointVertBuffer.position);
 
         if (this.pointColBuffer == null)
@@ -990,7 +990,7 @@ c3dl.WebGL = function ()
         }
 
         glCanvas3D.bindBuffer(glCanvas3D.ARRAY_BUFFER, this.pointColBuffer.position);
-        glCanvas3D.bufferData(glCanvas3D.ARRAY_BUFFER, new WebGLFloatArray(pointColors), glCanvas3D.STREAM_DRAW);
+        glCanvas3D.bufferData(glCanvas3D.ARRAY_BUFFER, new C3DL_FLOAT_ARRAY(pointColors), glCanvas3D.STREAM_DRAW);
         this.setVertexAttribArray(shader, "Color", 3, this.pointColBuffer.position);
         glCanvas3D.drawArrays(glCanvas3D.POINTS, 0, pointPositions.length / 3);
       }

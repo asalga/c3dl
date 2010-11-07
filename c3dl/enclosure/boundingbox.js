@@ -19,10 +19,10 @@ c3dl.BoundingBox = function ()
   this.init = function (vertices)
   {
     if (vertices) {
-	    vertices = new C3DL_FLOAT_ARRAY(vertices);
+      vertices = new C3DL_FLOAT_ARRAY(vertices);
       var lengthVerts= new C3DL_FLOAT_ARRAY(vertices.length/3), widthVerts=new C3DL_FLOAT_ARRAY(vertices.length/3), heightVerts=new C3DL_FLOAT_ARRAY(vertices.length/3), j = 0;
       var j = 0;
-	    for (var i = 0; i < vertices.length/3; i++) {
+      for (var i = 0; i < vertices.length/3; i++) {
         lengthVerts[i] = vertices[j];
         heightVerts[i] = vertices[j+1];
         widthVerts[i] = vertices[j+2];

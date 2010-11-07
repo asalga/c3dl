@@ -58,7 +58,7 @@ c3dl.greyscale_callback = function (renderingObj)
     var normalAttribLoc = gl.getAttribLocation(progObjID, "Normal");
 
     // if the object acutally has normals and the normal attribute was found
-    //			
+    //      
     if (currColl.getNormals())
     {
       // the top matrix is the modelview matrix.
@@ -99,7 +99,7 @@ c3dl.greyscale_callback = function (renderingObj)
       gl.bindTexture(gl.TEXTURE_2D, texID);
 
       //gl.vertexAttribPointer(texAttribLoc, 2, gl.FLOAT, false, 0, currColl.getTexCoords());
-      //gl.enableVertexAttribArray(texAttribLoc);	
+      //gl.enableVertexAttribArray(texAttribLoc);  
       renderer.setVertexAttribArray(progObjID, "Texture", 2, currColl.getVBOTexCoords());
       usingTexture = true;
     }
