@@ -1,0 +1,47 @@
+<html>
+  <head>
+    <title>Seneca Island</title>
+    <script language="javascript" src="../../../c3dl/c3dapi.js"></script>
+    <script language="javascript" src="source/main.js"></script>
+    <script language="javascript" src="source/building.js"></script>
+  </head>
+
+  <body background="#FFFFFF">
+
+    <div align="center">
+      <img src="images/seneca_island.png" />
+    </div>
+      
+    <table border="0" align="center">
+      <tr>
+        <td width="250">
+          <img src="images/money.png" align="absmiddle" /><span style="font-size:24pt;font-family:verdana;" id="usersMoney">2000</span><br />
+        </td>
+        <td align="left" width="250">
+          <img src="images/tree.png" align="absmiddle" /><span style="font-size:24pt;font-family:verdana;" id="usersLumber">1000</span><br />
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" align="center">
+          <canvas id="rts" width="500" height="500"></canvas>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <img title="Money:500$ Lumber:0" src="images/house/house_icon_up.png" id="house" onclick="createObject(0);"/>
+          <img title="Money:500$ Lumber:0" src="images/firehall/firehall_icon_up.png" id="firehall" onclick="createObject(1);"/>
+          <img title="Money:500$ Lumber:0" src="images/bank/bank_icon_up.png" id="bank" onclick="createObject(2);"/>
+          <img title="Money:500$ Lumber:0" src="images/lumber_yard/lumber_yard_icon_up.png" id="lumber_yard" onclick="createObject(3);"/>
+
+          <img src="images/blank.png" id="spacer" />
+          <img src="images/blank.png" id="cancel_building" onclick="cancelCreateObject();"/>
+        </td>
+      </tr>
+    </table>
+    <br />
+    <br />
+    
+    <a href="#" id="help_link" style="font-family:verdana;" onclick="displayHelp();">Help [+]</a> | <span id="fps">FPS: </span>
+    <span id="help_desc"></span>
+  </body>
+</html>
