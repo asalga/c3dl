@@ -882,7 +882,6 @@ c3dl.WebGL = function ()
       // create a short alias for this.lineShader
       var shader = this.lineShader;
       glCanvas3D.useProgram(shader);
-
       // camera placed the view matrix at the bottom of the stack
       var modelViewMatrix = c3dl.peekMatrix();
       c3dl.matrixMode(c3dl.PROJECTION);
