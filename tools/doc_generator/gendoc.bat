@@ -1,1 +1,0 @@
-java -jar jsrun.jar app\run.js -a -v -r -t=templates/jsdoc -d=../documentation/ ../canvas3dapi/
