@@ -1072,22 +1072,15 @@ c3dl.Scene = function ()
       // we don't need to update lines or points since their
       // positions/coords are controlled by the user in the
       // update callback they write.
-      switch (objList[i].getObjectType())
-      {
-      case c3dl.PARTICLE_SYSTEM:
-      case c3dl.COLLADA:
+      switch (objList[i].getObjectType()) {
+        case c3dl.PARTICLE_SYSTEM:
+        case c3dl.COLLADA:
         objList[i].update(timeElapsed);
       }
-
-
     }
-
     // update the SkyModel
-    if (skyModel)
-    {
-      //
+    if (skyModel) {
       skyModel.update(timeElapsed);
-
       // move skymodel so the camera is at its center.
       // Let the user scale it and rotate it if they wish.
       skyModel.setPosition(camera.getPosition());

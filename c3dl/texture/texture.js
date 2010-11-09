@@ -20,8 +20,6 @@ c3dl.Texture = function ()
   var textureImage = null;
   var isSetup = false;
   var tCanvas = document.createElement('CANVAS'); 
-  tCanvas.width = 512;
-  tCanvas.height = 512;
   var tCtx = tCanvas.getContext("2d");
   var sourcecan = null;
   var updateTexture = false;
@@ -116,20 +114,25 @@ c3dl.Texture = function ()
         textureImage.relativePath = source;
       }
       else {
-	      if (sourceCanvas instanceof HTMLCanvasElement) {
+        if (sourceCanvas instanceof HTMLCanvasElement || sourceCanvas instanceof HTMLVideoElement) {
+          //if height or width is unknown set height and width to predefined value of 1024 by 1024
+          if ( sourceCanvas.width < 0 || sourceCanvas.height  < 0) {
+            tCanvas.width = 1024;
+            tCanvas.height = 1024;
+          }
+          else {
+            tCanvas.width = c3dl.roundUpToNextPowerOfTwo(sourceCanvas.width);
+            tCanvas.height = c3dl.roundUpToNextPowerOfTwo(sourceCanvas.height);
+          }
           sourcecan = sourceCanvas;
-	        tCtx.drawImage(sourceCanvas, 0, 0, 512, 512);
-          textureImage = tCanvas;
-          updateTexture = true;
-        }
-        else if (sourceCanvas instanceof HTMLVideoElement) {
-          sourcecan = sourceCanvas;
-          tCtx.drawImage(sourceCanvas, 0, 0, 512, 512);
+          tCtx.drawImage(sourceCanvas, 0, 0, tCanvas.width, tCanvas.height);
           textureImage = tCanvas;
           updateTexture = true;
         }
         else if (sourceCanvas instanceof HTMLImageElement) {
-          tCtx.drawImage(sourceCanvas, 0, 0, 512, 512);
+          tCanvas.width = c3dl.roundUpToNextPowerOfTwo(sourceCanvas.width);
+          tCanvas.height = c3dl.roundUpToNextPowerOfTwo(sourceCanvas.height);
+          tCtx.drawImage(sourceCanvas, 0, 0, tCanvas.width, tCanvas.height);
           textureImage = tCanvas;
         }
         else {
@@ -240,7 +243,7 @@ c3dl.Texture = function ()
   }
   this.update = function () {
     if (updateTexture) {
-      tCtx.drawImage(sourcecan, 0, 0, 512, 512);
+      tCtx.drawImage(sourcecan, 0, 0, tCanvas.width, tCanvas.height);
       textureImage.onload();
     }
   }
