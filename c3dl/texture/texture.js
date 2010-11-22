@@ -114,9 +114,9 @@ c3dl.Texture = function ()
         textureImage.relativePath = source;
       }
       else {
-        if (sourceCanvas instanceof HTMLCanvasElement || sourceCanvas instanceof HTMLVideoElement) {
+        if (sourceCanvas instanceof HTMLCanvasElement || sourceCanvas instanceof HTMLVideoElement || sourceCanvas instanceof HTMLImageElement) {
           //if height or width is unknown set height and width to predefined value of 1024 by 1024
-          if ( sourceCanvas.width < 0 || sourceCanvas.height  < 0) {
+          if ( sourceCanvas.width <= 1 || sourceCanvas.height  <= 1) {
             tCanvas.width = 1024;
             tCanvas.height = 1024;
           }
@@ -128,12 +128,6 @@ c3dl.Texture = function ()
           tCtx.drawImage(sourceCanvas, 0, 0, tCanvas.width, tCanvas.height);
           textureImage = tCanvas;
           updateTexture = true;
-        }
-        else if (sourceCanvas instanceof HTMLImageElement) {
-          tCanvas.width = c3dl.roundUpToNextPowerOfTwo(sourceCanvas.width);
-          tCanvas.height = c3dl.roundUpToNextPowerOfTwo(sourceCanvas.height);
-          tCtx.drawImage(sourceCanvas, 0, 0, tCanvas.width, tCanvas.height);
-          textureImage = tCanvas;
         }
         else {
           textureImage = document.getElementById(sourceCanvas);
